@@ -1,5 +1,11 @@
 // all functionality for the database in here
-const { GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+const {
+  GraphQLList,
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+} = require('graphql');
 
 // users database
 const users = [
@@ -17,7 +23,8 @@ const users = [
   {
     id: '2',
     name: 'Fanny fanelia',
-    bio: 'I am a lovely WOMAN in tech looking for an almost as equally female mentor (but not really bothered)',
+    bio:
+      'I am a lovely WOMAN in tech looking for an almost as equally female mentor (but not really bothered)',
     city: 'Svensk countryside',
     years: '0',
     field: 'Femtech',
@@ -51,25 +58,23 @@ const users = [
 
 // matches database
 const matches = [
-{
-  id: "1",
-  matchArray: 'I am a string'
-},
-{
-  id: "2",
-matchArray: [ 7, 34, 9, 70 ]
-},
-{
-  id: "3",
-matchArray: [ 7, 23, 42, 8 ]
-},
-{
-  id: "4",
-matchArray: [ 88, 41, 6, 3 ]
-}
-]
-
-
+  {
+    id: '1',
+    matchArray: 'I am a string',
+  },
+  {
+    id: '2',
+    matchArray: [7, 34, 9, 70],
+  },
+  {
+    id: '3',
+    matchArray: [7, 23, 42, 8],
+  },
+  {
+    id: '4',
+    matchArray: [88, 41, 6, 3],
+  },
+];
 
 // template for how every User looks
 // every user has these fields:
@@ -101,7 +106,7 @@ const MatchType = new GraphQLObjectType({
   name: 'matches',
   fields: {
     id: { type: GraphQLString },
-    matchArray: { type: GraphQLString }
+    matchArray: { type: GraphQLString },
   },
 });
 
@@ -128,7 +133,6 @@ const RootQuery = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
   query: RootQuery,
 });
-
 
 // yaldar, possible fix
 // all functionality for the database in here
