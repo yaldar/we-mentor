@@ -1,3 +1,18 @@
+import React, { } from 'react';
+
+function Matches() {
+    // on mount fetches, state contains: array of matches, user info for each of the matches
+    // show the picture, bio, - only some of the info abt the user
+
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Matches;
+
 // Sidebar is updated on each page-load.
     // useEffect 
         // fetch request to server endpoint 'api/:userid/matches'
