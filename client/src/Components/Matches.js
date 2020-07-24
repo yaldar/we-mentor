@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
-
-import { graphql } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import MatchCard from './MatchCard';
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -10,35 +7,32 @@ const fetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
+const getMatchesQuery = (id) => `{
+  matches(id: "${id}")
+}`
+
 function Matches(props) {
   const [matches, setMatches] = useState({ matches: [] });
 
   useEffect(() => {
     fetch({
-      query: `{
-        matches(id: "${props.userId}")
-      }`,
-    }).then(res => {
+      query: getMatchesQuery(props.userId),
+    })
+    .then(res => {
       setMatches({ matches: [...res.data.matches] });
-    });
+      return res; 
+    })
+    .then(res => props.getFirstMatch(res.data.matches[0]));
   }, []);
 
   return (
-    <Row>
-      <Col sm={{ size: 'auto', offset: 7 }}>
-      <p>MATCHES</p>
-      <Nav vertical>
+      <div>
         {matches.matches.map(id => {
           return (
-            <NavItem>
-              {' '}
-              <MatchCard id={id} key={id} />
-            </NavItem>
+              <MatchCard getMatchData={props.getMatchData} id={id} key={id} />
           );
         })}
-      </Nav>
-      </Col>
-      </Row>
+      </div>
   );
 }
 

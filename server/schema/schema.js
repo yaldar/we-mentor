@@ -174,12 +174,12 @@ const RootQuery = new GraphQLObjectType({
         }
       });
       const idArray = matchedArray.map(el => el.linkedin_id);
-      console.log(idArray);
       return idArray;
       }
     }
   },
 });
+
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
