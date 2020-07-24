@@ -1,10 +1,13 @@
 import React from 'react';
 import Matches from './Matches';
+import Profilecreation from './Profilecreation';
 
 function App() {
+
   return (
     <div className="App">
-    <Matches userId="1"/>
+      <Profilecreation />
+      <Matches userId="1" />
     </div>
   );
 }
