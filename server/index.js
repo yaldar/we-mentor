@@ -4,6 +4,7 @@ const schema = require('./schema/schema');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
+var cookieParser = require('cookie-parser')
 
 mongoose.connect(
   'mongodb+srv://fanny_petersen:Numerouno@cluster0.m7tv4.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -14,10 +15,11 @@ mongoose.connect(
 const app = express();
 
 app.use(cors());
+app.use(cookieParser())
 
 const redirectUri = 'http://localhost:4000/callback';
 const clientId = '78va9p9a58k2jg';
-const clientSecret = 'pNxSXZYL2e4z9uhG';
+const clientSecret = 'pNxSXZYL2e4z9uhG'; 
 const state = 'numerouno'
 
 app.get('/login', (req, res) => {
@@ -43,6 +45,15 @@ app.get('/callback', async (req, res) => {
   res.redirect('http://localhost:3000');
 });
 
+app.get('/checkuser', async (req, response) => {
+  console.log('coookie', req.cookies.accessToken);
+  const userData = await fetch('https://api.linkedin.com/v2/me', { mode: 'cors', Connection: 'Keep-Alive', headers: { Authorization: `Bearer ${req.cookies.accessToken}` } })
+  .then(res => res.json());
+  response.header('Access-Control-Allow-origin', 'http://localhost:3000');
+  response.header('Access-Control-Allow-Credentials', 'true');
+  response.json(userData);
+})
+
 
 app.use(
   '/graphql',
@@ -60,7 +71,3 @@ db.once('open', function () {
 
 app.listen(4000);
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-
-// Matchbar - matching algorithm in the server which reflect the current profile status.
-
-// app.POST('api/:userid/') - update user info & creates matchingArray & store it in db somewhere

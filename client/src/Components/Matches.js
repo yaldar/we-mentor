@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import MatchCard from './MatchCard';
 const { createApolloFetch } = require('apollo-fetch');
 
-const fetch = createApolloFetch({
+const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
@@ -15,15 +15,19 @@ function Matches(props) {
   const [matches, setMatches] = useState({ matches: [] });
 
   useEffect(() => {
-    fetch({
-      query: getMatchesQuery(props.userId),
-    })
-    .then(res => {
-      setMatches({ matches: [...res.data.matches] });
-      return res; 
-    })
-    .then(res => props.getFirstMatch(res.data.matches[0]));
-  }, []);
+    console.log('Matches user id', props.userId);
+    if(props.userId) {
+      apolloFetch({
+        query: getMatchesQuery(props.userId),
+      })
+      .then(res => {
+        setMatches({ matches: [...res.data.matches] });
+        return res; 
+      })
+      .then(res => props.getFirstMatch(res.data.matches[0]));
+    }
+    
+  }, [props]);
 
   return (
       <div>

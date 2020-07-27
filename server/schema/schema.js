@@ -145,7 +145,6 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(UserType),
       resolve(parent, args) {
         return User.find();
-        // return users.find(el => el.id === args.id);
       },
     },
     user: {
@@ -153,7 +152,6 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
         return User.findOne({linkedin_id: args.id});
-        // return users.find(el => el.id === args.id);
       },
     },
     matches: {
@@ -162,13 +160,15 @@ const RootQuery = new GraphQLObjectType({
       async resolve(parent, args) {
       const user = await User.findOne({linkedin_id: args.id}).exec();
       const userCity = user.preferences.city;
-      const userTechnologies = user.preferences.technologies;
+      const userTechnologies = user.preferences.technologies[0].split(',');
+      console.log(userTechnologies);
       const userStack = user.preferences.stack;
       const userYears = user.preferences.years;
       const dbResponse = await User.find({ role: {$ne: user.role}, years: userYears, city: userCity, stack: userStack }).exec();
       const matchedArray = dbResponse.filter(e => {
-        for (let i = 0; i < e.technologies.length; i++){
-          if(userTechnologies.includes(e.technologies[i])){
+        const technologies = e.technologies[0].split(',');
+        for (let i = 0; i < technologies.length; i++){
+          if(userTechnologies.includes(technologies[i])){
             return true; 
           }
         }

@@ -1,33 +1,82 @@
-import React, {useState} from 'react';
-import Matches from './Matches';
-import { Col, Row, Container } from 'reactstrap';
-import Profileother from './Profileother';
 import '../App.css';
-import Profilecreation from './Profilecreation';
+import LoggedInApp from './LoggedInApp';
+import Login from './Login';
+import Profilecreation from './Profilecreation';import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+const { createApolloFetch } = require('apollo-fetch');
+// import { Col, Row, Container } from 'reactstrap';
+
+
+
+const apolloFetch = createApolloFetch({
+  uri: 'http://localhost:4000/graphql',
+});
+
+const getUserQuery = id => {
+  return `{
+    user(id: "${id}") {
+      name
+    }
+  }`;
+};
+
 
 function App() {
+  const [cookies] = useCookies(['accessToken']);
+  const [state, setState] = useState({});
 
-  const [state, setState] = useState({ user: '1', clickedMatch: null });
-  
-  const getMatchData = async (event) => await setState({ clickedMatch: event.target.id });
-  
-  const getFirstMatch = async (id) =>  await setState({ clickedMatch: id });
+  console.log(cookies);
+
+  useEffect(() => {
+
+
+    if (cookies.accessToken) {
+      setState({ loggedIn: true });
+      
+      const checkIfUserExist = async () => {
+        
+        const userData = await fetch('http://localhost:4000/checkuser', {headers: {Cookie: cookies.accessToken}, credentials: 'include'})
+        .then(res => res.json());
+        
+        const userId = userData.id; 
+        console.log(userId);
+        
+        const userExist = await apolloFetch({
+          query: getUserQuery(userId),
+        });
+        console.log('hereeeeeeeeeee', userExist);
+        if(userExist.data.user){
+          setState(prevState => ({...prevState, userExist: true, userData}));
+        } else {
+          setState(prevState => ({...prevState, userExist: false, userData}));
+        }
+      }
+      checkIfUserExist();
+
+    } else {
+      setState({ loggedIn: false });
+    }
+  }, []);
+
+  /*---------------
+
+  GET /v2/me HTTP/1.1
+Host: api.linkedin.com
+Connection: Keep-Alive
+Authorization: Bearer {access_token}
+
+
+------------*/
+
 
   return (
-    <div className="App">
-    <Container className="themed-container">.
-      <Row>
-        <Col>
-        <Profilecreation />
-        </Col>
-
-        <Col>
-        <Profileother matchId={state.clickedMatch}/>
-        </Col>
-
-        <Col><Matches getFirstMatch={getFirstMatch} getMatchData={getMatchData} userId={state.user}/></Col>
-      </Row>
-    </Container>
+    <div>
+      <BrowserRouter>
+        <Route exact path='/'>
+          {state.loggedIn ? (state.userExist ? <LoggedInApp userData={state.userData} /> : <Profilecreation userData={state.userData} />): <Login />}
+        </Route>
+      </BrowserRouter>
     </div>
   );
 }

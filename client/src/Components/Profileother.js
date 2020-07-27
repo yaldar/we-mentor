@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 const { createApolloFetch } = require('apollo-fetch');
 
-const fetch = createApolloFetch({
+const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
@@ -25,7 +25,7 @@ const Profileother = props => {
   const [matchProfile, setMatchProfile] = useState({ technologies: [] });
 
   useEffect(() => {
-    fetch({
+    apolloFetch({
       query: getMatchUserQuery(props.matchId),
     })
       .then(res => {

@@ -4,7 +4,7 @@ import { gql } from 'apollo-boost';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 const { createApolloFetch } = require('apollo-fetch');
 
-const fetch = createApolloFetch({
+const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
@@ -12,7 +12,7 @@ const MatchCard = props => {
   const [match, setMatch] = useState({});
 
   useEffect(() => {
-    fetch({
+    apolloFetch({
       query: `{
         user(id: "${props.id}") {
           name,
