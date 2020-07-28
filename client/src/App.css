@@ -1,24 +1,71 @@
 img {
-    text-align: center;
+  text-align: center;
 }
 
 .navbar {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login__header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-rows: repeat(5, 1fr); */
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  margin-bottom: 50px;
+}
+
+.div1 {
+  grid-area: 1 / 2 / 2 / 5;
+}
+.div2 {
+  grid-area: 1 / 5 / 2 / 6;
+}
+
+.media {
+  margin: 50px;
+  margin-left: 100px;
+}
+
+.media__image {
+  margin: 0px 50px;
+}
+
+.media__text {
+width: 100%;
+max-width: 400px;
+  text-align: left;
+}
+
+.nav {
+  text-align: center;
+}
+
+.link {
+  color: blue;
 }
 
 .profile-creation {
-    width: 100%;
-    max-width: 700px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding-bottom: 50px;
 }
 
-    
+.content {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
 
-    
-    .div1 { grid-area: 2 / 1 / 5 / 3; }
-    .div2 { grid-area: 2 / 3 / 5 / 5; }
+.profile-edit {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding-bottom: 50px;
+}

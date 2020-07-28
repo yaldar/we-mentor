@@ -4,10 +4,14 @@
 // if you click card, you get to the profile.
 
 import React from 'react';
+import Navigationbar from './Navigationbar';
+
 
 const Search = () => {
   return (
       <div>
+        <Navigationbar className='navbar' />
+
               Search for people here!
       </div>
   );

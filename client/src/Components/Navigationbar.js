@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import {
   Collapse,
   Navbar,
@@ -7,17 +8,18 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   NavbarText
 } from 'reactstrap';
 
 const Navigationbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [removeCookie] = useCookies(['accessToken']);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const logOut = () => {
+    removeCookie('accessToken');
+  }
 
   return (
     <div>
@@ -30,7 +32,7 @@ const Navigationbar = (props) => {
               <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/createprofile">Profile</NavLink>
+              <NavLink href="/profile">Profile</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/messages">Messages</NavLink>
@@ -39,26 +41,8 @@ const Navigationbar = (props) => {
               <NavLink href="/search">Search</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/logout">Log out</NavLink>
+              <NavLink href="/logout" onClick={logOut}>Log out</NavLink>
             </NavItem>
-
-            {/* <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
           </Nav>
           <NavbarText>by NumeroUno</NavbarText>
         </Collapse>

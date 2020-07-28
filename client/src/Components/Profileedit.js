@@ -3,26 +3,15 @@ import React, { useState } from 'react';
 import Navigationbar from './Navigationbar';
 const { createApolloFetch } = require('apollo-fetch');
 
-// possibility to toggle btw mentor/mentee status
-// get info, picture from LinkedIn through authentication
-// form for motivational letter/ drag n drop for a text file
-
 const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
-function Profilecreation(props) {
-console.log('COMPONENT RENDERED');
+function Profileedit(props) {
+  console.log('COMPONENT RENDERED');
 
   const [state, setState] = useState({
-    linkedin_id: '',
-    name: '',
-    bio: '',
-    city: '',
-    years: '',
-    stack: '',
-    technologies: [],
-    pref_technologies: []
+    userData: props.userData,
   });
 
   const handleChange = event => {
@@ -69,8 +58,8 @@ console.log('COMPONENT RENDERED');
 
     apolloFetch({
       query: `mutation {
-                addUser(
-                    linkedin_id: "${props.userData.id}",
+                updateUser(
+                  linkedin_id: "${props.userData.id}",
                   name: "${props.userData.localizedFirstName} ${props.userData.localizedLastName}",
                   bio: "${state.bio}",
                   city: "${state.city.toLowerCase()}",
@@ -87,18 +76,19 @@ console.log('COMPONENT RENDERED');
                   name
                 }
               }`,
-    }).then(res => {
-    });
+    }).then(res => {});
+
   };
 
   return (
     <div>
-        <Navigationbar className='navbar' />
-        <section  className='profile-creation'>
-
-      <h1>Create your We-Mentor profile</h1>
-      <p>Name: {props.userData ? props.userData.localizedFirstName : ''} {props.userData ? props.userData.localizedLastName: '' }</p>
-        <br />
+      <Navigationbar className='navbar' />
+<section  className='profile-edit'>
+      <h1>Edit profile</h1>
+      <h5>
+        {props.userData ? props.userData.localizedFirstName : ''}{' '}
+        {props.userData ? props.userData.localizedLastName : ''}
+      </h5>
       <form className='form' id='form'>
         <p>Select role:</p>
         <input type='radio' id='mentor' name='role' value='mentor' onChange={handleChange} />
@@ -107,26 +97,20 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='mentee' name='role' value='mentee' onChange={handleChange} />
         <label for='mentee'>Mentee</label>
         <br />
-        {/* <p>Id: {props.userData ? props.userData.id : ''}</p> */}
-        <input type='text' name='bio' placeholder='Enter bio' value={state.bio || ''} onChange={handleChange} />
+        <br />
+        <input type='text' name='bio' placeholder='Edit bio' value={state.bio || ''} onChange={handleChange} />
         <br />
         <input
           type='text'
           name='city'
-          placeholder='Enter city'
+          placeholder='Edit city'
           value={state.city || ''}
           onChange={handleChange}
         />{' '}
         <br />
-        <input
-          type='text'
-          name='job'
-          placeholder='Enter current job'
-          value={state.job || ''}
-          onChange={handleChange}
-        />
+        <input type='text' name='job' placeholder='Edit current job' value={state.job || ''} onChange={handleChange} />
         <br />
-        <p>Enter years of experience:</p>
+        <p>Edit years of experience:</p>
         <input type='radio' id='0-3' name='years' value='0-3' onChange={handleChange} />
         <label for='0-3'>0-3</label>
         <br />
@@ -139,7 +123,7 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='10+' name='years' value='10+' onChange={handleChange} />
         <label for='10+'>10+</label>
         <br />
-        <p>Enter stack:</p>
+        <p>Edit stack:</p>
         <input type='radio' id='Front-end' name='stack' value='Front-end' onChange={handleChange} />
         <label for='Front-end'>Front-end</label>
         <br />
@@ -149,7 +133,7 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='Fullstack' name='stack' value='Fullstack' onChange={handleChange} />
         <label for='Fullstack'>Fullstack</label>
         <br />
-        <p>Enter technologies:</p>
+        <p>Edit technologies:</p>
         <input
           type='checkbox'
           id='JavaScript'
@@ -175,9 +159,9 @@ console.log('COMPONENT RENDERED');
         <hr />
         <h5>What are you looking for in a {state.role === 'mentor' ? 'mentee' : 'mentor'}?</h5>
         <br />
-        <label for='pref_city'> Preferred city of {state.role === 'mentor' ? 'mentee' : 'mentor'}: </label>
+        <label for='pref_city'> Edit preferred city of {state.role === 'mentor' ? 'mentee' : 'mentor'}: </label>
         <input type='text' name='pref_city' placeholder='City' value={state.pref_city || ''} onChange={handleChange} />
-        <p>Preferred years of experience of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+        <p>Edit preferred years of experience of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
         <input type='radio' id='0-3' name='pref_years' value='0-3' onChange={handleChange} />
         <label for='0-3'>0-3</label>
         <br />
@@ -190,7 +174,7 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='10+' name='pref_years' value='10+' onChange={handleChange} />
         <label for='10+'>10+</label>
         <br />
-        <p>Preferred stack of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+        <p>Edit preferred stack of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
         <input type='radio' id='Front-end' name='pref_stack' value='Front-end' onChange={handleChange} />
         <label for='Front-end'>Front-end</label>
         <br />
@@ -200,7 +184,7 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='Fullstack' name='pref_stack' value='Fullstack' onChange={handleChange} />
         <label for='Fullstack'>Fullstack</label>
         <br />
-        <p>Preferred technologies of {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+        <p>Edit preferred technologies of {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
         <input
           type='checkbox'
           id='pref_JavaScript'
@@ -221,7 +205,14 @@ console.log('COMPONENT RENDERED');
         />
         <label for='pref_Java'>Java</label>
         <br />
-        <input type='checkbox' id='pref_C' name='pref_technologies' value='C' onChange={addPrefTechnologies} className='tech' />
+        <input
+          type='checkbox'
+          id='pref_C'
+          name='pref_technologies'
+          value='C'
+          onChange={addPrefTechnologies}
+          className='tech'
+        />
         <label for='pref_C'>C</label>
         <br />
         <input
@@ -252,4 +243,4 @@ console.log('COMPONENT RENDERED');
   );
 }
 
-export default Profilecreation;
+export default Profileedit;
