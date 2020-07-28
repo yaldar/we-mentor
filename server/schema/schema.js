@@ -1,44 +1,6 @@
 const User = require('../models/user');
 const { GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
 
-const conversation1 = [
-  {
-    id: "1", // uuid
-    name: "Carro",
-    message: "Hello there! I am your new menteee!!"
-  },
-  {
-    id: "2", // uuid
-    name: "Max",
-    message: "Oh no, i thought you would be a man :O"
-  },
-  {
-    id: "3", // uuid
-    name: "Carro",
-    message: "Oh kuk"
-  },
-  {
-    id: "4", // uuid
-    name: "Max",
-    message: "Balle. aja det är ok. allt bra? "
-  },
-  {
-    id: "5", // uuid
-    name: "Carro",
-    message: "Nej. Jag tycker inte om män >:-("
-  },
-  {
-    id: "6", // uuid
-    name: "Max",
-    message: "Im not a man, i  am a boy"
-  },
-  {
-    id: "7", // uuid
-    name: "Carro",
-    message: "Gr8! I luv bois!! :D"
-  }
-]
-
 const MessageType = new GraphQLObjectType({
   name: 'Message',
   fields: () => ({
@@ -132,6 +94,15 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    addMessage: {
+      type: MessageType,
+      args: { id: { type: GraphQLString }, name: { type: GraphQLString }, message: { type: GraphQLString }},
+      resolve(parent, args) {
+        conversation1 = [...conversation1, {id: args.id, name: args.name, message: args.message}]; 
+        console.log(conversation1);
+        return conversation1;
+      },
+    },
     addUser: {
       type: UserType,
       args: {
@@ -220,6 +191,55 @@ const Mutation = new GraphQLObjectType({
     },
   },
 });
+
+const conversations = [
+  {
+    id: 'conversation1',
+    messages: []
+  },
+  {
+    id: 'conversation2',
+    messages: []
+  }
+];
+
+let conversation1 = [
+  {
+    id: "1", // uuid
+    name: "Carro",
+    message: "Hello there! I am your new menteee!!"
+  },
+  {
+    id: "2", // uuid
+    name: "Max",
+    message: "Oh no, i thought you would be a man :O"
+  },
+  {
+    id: "3", // uuid
+    name: "Carro",
+    message: "Oh kuk"
+  },
+  {
+    id: "4", // uuid
+    name: "Max",
+    message: "Balle. aja det är ok. allt bra? "
+  },
+  {
+    id: "5", // uuid
+    name: "Carro",
+    message: "Nej. Jag tycker inte om män >:-("
+  },
+  {
+    id: "6", // uuid
+    name: "Max",
+    message: "Im not a man, i  am a boy"
+  },
+  {
+    id: "7", // uuid
+    name: "Carro",
+    message: "Gr8! I luv bois!! :D"
+  }
+]
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
