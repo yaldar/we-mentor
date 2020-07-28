@@ -37,8 +37,8 @@ img {
 }
 
 .media__text {
-width: 100%;
-max-width: 400px;
+  width: 100%;
+  max-width: 400px;
   text-align: left;
 }
 
@@ -68,4 +68,16 @@ max-width: 400px;
   max-width: 700px;
   margin: auto;
   padding-bottom: 50px;
+}
+
+.mr-right {
+  color: palevioletred;
+}
+
+.profile-edit__button {
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 10px;
 }

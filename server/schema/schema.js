@@ -171,43 +171,53 @@ const Mutation = new GraphQLObjectType({
       },
     },
 
+    updateUser: {
+      type: UserType,
+      args: {
+        linkedin_id: { type: GraphQLString },
+        name: { type: GraphQLString },
+        bio: { type: GraphQLString },
+        city: { type: GraphQLString },
+        years: { type: GraphQLString },
+        technologies: { type: new GraphQLList(GraphQLString) },
+        stack: { type: GraphQLString },
+        current_job: { type: GraphQLString },
+        role: { type: GraphQLString },
+        pref_city: { type: GraphQLString },
+        pref_years: { type: GraphQLString },
+        pref_technologies: { type: new GraphQLList(GraphQLString) },
+        pref_stack: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        // var query = { name: 'bourne' };
+        // User.update(query, { name: 'jason bourne' }, options, callback);
 
-    // updateUser: {
-    //   type: UserType,
-    //   args: {
-    //     linkedin_id: { type: GraphQLString },
-    //     name: { type: GraphQLString },
-    //     bio: { type: GraphQLString },
-    //     city: { type: GraphQLString },
-    //     years: { type: GraphQLString },
-    //     technologies: { type: new GraphQLList(GraphQLString) },
-    //     stack: { type: GraphQLString },
-    //     current_job: { type: GraphQLString },
-    //     role: { type: GraphQLString },
-    //     pref_city: { type: GraphQLString },
-    //     pref_years: { type: GraphQLString },
-    //     pref_technologies: { type: new GraphQLList(GraphQLString) },
-    //     pref_stack: { type: GraphQLString },
-    //   },
-    //   resolve(parent, args) {
-    //     let user = User.findOne({ linkedin_id: args.linkedin_id });
-    //     user.name = args.name;
-    //       user.bio = args.bio;
-    //       user.city = args.city,
-    //       user.years = args.years,
-    //       user.technologies = args.technologies,
-    //       user.stack = args.stack,
-    //       user.current_job = args.current_job,
-    //       user.role = args.role,
-    //       user.preferences = {
-    //         city: args.pref_city,
-    //         years: args.pref_years,
-    //         technologies: args.pref_technologies,
-    //         stack: args.pref_stack,
-    //       };
-    //     return user.save();
-    //   },
-    // },
+        // // is sent as
+        // Model.update(query, { $set: { name: 'jason bourne' } }, options, callback);
+
+        return User.update(
+          { linkedin_id: args.linkedin_id },
+          {
+            $set: {
+              name: args.name,
+              bio: args.bio,
+              city: args.city,
+              years: args.years,
+              technologies: [...args.technologies],
+              stack: args.stack,
+              current_job: args.current_job,
+              role: args.role,
+              preferences: {
+                city: args.pref_city,
+                years: args.pref_years,
+                technologies: [...args.pref_technologies],
+                stack: args.pref_stack,
+              },
+            },
+          },
+        );
+      },
+    },
   },
 });
 

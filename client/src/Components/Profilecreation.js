@@ -1,11 +1,7 @@
-// import { Col, Row, Container } from 'reactstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from "react-router-dom";
 import Navigationbar from './Navigationbar';
 const { createApolloFetch } = require('apollo-fetch');
-
-// possibility to toggle btw mentor/mentee status
-// get info, picture from LinkedIn through authentication
-// form for motivational letter/ drag n drop for a text file
 
 const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
@@ -22,7 +18,8 @@ console.log('COMPONENT RENDERED');
     years: '',
     stack: '',
     technologies: [],
-    pref_technologies: []
+    pref_technologies: [],
+    redirectToHome: false
   });
 
   const handleChange = event => {
@@ -58,11 +55,18 @@ console.log('COMPONENT RENDERED');
         arr.push(inputs[i].value);
       }
     }
-    setState({
-      ...state,
+    setState(prev=>({
+      ...prev,
       pref_technologies: [...arr],
-    });
+    }));
   };
+
+  const redirectToHome = () => {
+    setState(prev=>({
+      ...prev,
+      redirectToHome: true
+    }));
+  } 
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -88,28 +92,39 @@ console.log('COMPONENT RENDERED');
                 }
               }`,
     }).then(res => {
+    redirectToHome();
     });
   };
 
   return (
     <div>
+    {state.redirectToHome ? <Redirect to='/' /> : null}
         <Navigationbar className='navbar' />
         <section  className='profile-creation'>
 
       <h1>Create your We-Mentor profile</h1>
-      <p>Name: {props.userData ? props.userData.localizedFirstName : ''} {props.userData ? props.userData.localizedLastName: '' }</p>
+      <br />
+          <br />
+      <h6>Name</h6> <p>{props.userData ? props.userData.localizedFirstName : ''} {props.userData ? props.userData.localizedLastName: '' }</p>
         <br />
+        <hr></hr>
+
       <form className='form' id='form'>
-        <p>Select role:</p>
+        <h6>Select role</h6>
         <input type='radio' id='mentor' name='role' value='mentor' onChange={handleChange} />
         <label for='mentor'>Mentor</label>
         <br />
         <input type='radio' id='mentee' name='role' value='mentee' onChange={handleChange} />
         <label for='mentee'>Mentee</label>
         <br />
+        <hr></hr>
         {/* <p>Id: {props.userData ? props.userData.id : ''}</p> */}
+        <h6>Enter your bio</h6>
         <input type='text' name='bio' placeholder='Enter bio' value={state.bio || ''} onChange={handleChange} />
-        <br />
+        <br />     
+        <hr></hr>
+        <h6>Enter your city</h6>
+
         <input
           type='text'
           name='city'
@@ -117,7 +132,9 @@ console.log('COMPONENT RENDERED');
           value={state.city || ''}
           onChange={handleChange}
         />{' '}
-        <br />
+        <br />  
+        <hr></hr>
+        <h6>Enter your current job</h6>
         <input
           type='text'
           name='job'
@@ -125,8 +142,9 @@ console.log('COMPONENT RENDERED');
           value={state.job || ''}
           onChange={handleChange}
         />
-        <br />
-        <p>Enter years of experience:</p>
+        <br />    
+        <hr></hr>
+        <h6>Enter your years of experience</h6>
         <input type='radio' id='0-3' name='years' value='0-3' onChange={handleChange} />
         <label for='0-3'>0-3</label>
         <br />
@@ -139,7 +157,8 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='10+' name='years' value='10+' onChange={handleChange} />
         <label for='10+'>10+</label>
         <br />
-        <p>Enter stack:</p>
+        <hr></hr>
+        <h6>Enter your stack</h6>
         <input type='radio' id='Front-end' name='stack' value='Front-end' onChange={handleChange} />
         <label for='Front-end'>Front-end</label>
         <br />
@@ -149,7 +168,9 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='Fullstack' name='stack' value='Fullstack' onChange={handleChange} />
         <label for='Fullstack'>Fullstack</label>
         <br />
-        <p>Enter technologies:</p>
+        <hr></hr>
+
+        <h6>Enter technologies</h6>
         <input
           type='checkbox'
           id='JavaScript'
@@ -175,9 +196,11 @@ console.log('COMPONENT RENDERED');
         <hr />
         <h5>What are you looking for in a {state.role === 'mentor' ? 'mentee' : 'mentor'}?</h5>
         <br />
-        <label for='pref_city'> Preferred city of {state.role === 'mentor' ? 'mentee' : 'mentor'}: </label>
+        <h6> Preferred city of {state.role === 'mentor' ? 'mentee' : 'mentor'} </h6>
         <input type='text' name='pref_city' placeholder='City' value={state.pref_city || ''} onChange={handleChange} />
-        <p>Preferred years of experience of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+        <hr></hr>
+
+        <h6>Preferred years of experience of your {state.role === 'mentor' ? 'mentee' : 'mentor'}</h6>
         <input type='radio' id='0-3' name='pref_years' value='0-3' onChange={handleChange} />
         <label for='0-3'>0-3</label>
         <br />
@@ -190,7 +213,9 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='10+' name='pref_years' value='10+' onChange={handleChange} />
         <label for='10+'>10+</label>
         <br />
-        <p>Preferred stack of your {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+
+        <hr></hr>
+        <h6>Preferred stack of your {state.role === 'mentor' ? 'mentee' : 'mentor'}</h6>
         <input type='radio' id='Front-end' name='pref_stack' value='Front-end' onChange={handleChange} />
         <label for='Front-end'>Front-end</label>
         <br />
@@ -200,7 +225,9 @@ console.log('COMPONENT RENDERED');
         <input type='radio' id='Fullstack' name='pref_stack' value='Fullstack' onChange={handleChange} />
         <label for='Fullstack'>Fullstack</label>
         <br />
-        <p>Preferred technologies of {state.role === 'mentor' ? 'mentee' : 'mentor'}:</p>
+        <hr></hr>
+
+        <h6>Preferred technologies of {state.role === 'mentor' ? 'mentee' : 'mentor'}</h6>
         <input
           type='checkbox'
           id='pref_JavaScript'
@@ -221,7 +248,7 @@ console.log('COMPONENT RENDERED');
         />
         <label for='pref_Java'>Java</label>
         <br />
-        <input type='checkbox' id='pref_C' name='pref_technologies' value='C' onChange={addPrefTechnologies} className='tech' />
+        <input type='checkbox' id='pref_C' name='pref_technologies' value='C' onChange={addPrefTechnologies} className='pref_tech'/>
         <label for='pref_C'>C</label>
         <br />
         <input
@@ -245,7 +272,7 @@ console.log('COMPONENT RENDERED');
         <label for='pref_Python'>Python</label>
         <br />
         <br />
-        <input type='submit' value='Submit' onClick={handleSubmit} />
+        <input type='submit' className="profile-edit__button" value='Submit' onClick={handleSubmit} />
       </form>
       </section>
     </div>
