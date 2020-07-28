@@ -51,7 +51,9 @@ const Profile = props => {
 
       const userCity = capitalizeFLetter(profileData.data.user.city);
 
-      setState({ profileData: profileData, userTechnologies: userTechnologies, userCity: userCity });
+      const matchCity = capitalizeFLetter(profileData.data.user.preferences.city);
+
+      setState({ profileData: profileData, userTechnologies: userTechnologies, userCity: userCity, matchCity: matchCity });
       console.log('STATE:', profileData.data.user);
     }
   };
@@ -81,9 +83,13 @@ const Profile = props => {
 
         <p>Current job: {state.profileData ? state.profileData.data.user.current_job : ''}</p>
 
-        <p>Preferred city of mentor: {state.profileData ? state.profileData.data.user.preferences.city : ''}</p>
+        <p>Preferred city of mentor: {state.matchCity ? state.matchCity : ''}</p>
 
         <p>Preferred years of mentor: {state.profileData ? state.profileData.data.user.preferences.years : ''}</p>
+
+        <p>Preferred stack of mentor: {state.profileData ? state.profileData.data.user.preferences.stack : ''}</p>
+
+        <p>Preferred technologies of mentor: {state.profileData ? state.profileData.data.user.preferences.technologies : ''}</p>
 
         <Link to="/profileedit">
         <Button color="success">Edit</Button>
