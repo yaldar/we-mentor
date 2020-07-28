@@ -1,34 +1,29 @@
 import '../App.css';
+import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
-import Logout from './Logout';
 import Profile from './Profile';
 import Profileedit from './Profileedit';
 import Messages from './Messages';
 import Profilecreation from './Profilecreation';
-import React, { useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 const { createApolloFetch } = require('apollo-fetch');
 
 const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
-const getUserQuery = id => {
-  return `{
+const getUserQuery = (id) => `{
     user(id: "${id}") {
       name
     }
   }`;
-};
 
 function App() {
   const [cookies] = useCookies(['accessToken']);
   const [state, setState] = useState({});
-
-  console.log(cookies);
-
   useEffect(() => {
     if (cookies.accessToken) {
       setState({ loggedIn: true });
@@ -37,19 +32,16 @@ function App() {
         const userData = await fetch('http://localhost:4000/checkuser', {
           headers: { Cookie: cookies.accessToken },
           credentials: 'include',
-        }).then(res => res.json());
+        }).then((res) => res.json());
 
         const userId = userData.id;
-        console.log(userId);
-
         const userExist = await apolloFetch({
           query: getUserQuery(userId),
         });
-        console.log('hereeeeeeeeeee', userExist);
         if (userExist.data.user) {
-          setState(prevState => ({ ...prevState, userExist: true, userData }));
+          setState((prevState) => ({ ...prevState, userExist: true, userData }));
         } else {
-          setState(prevState => ({ ...prevState, userExist: false, userData }));
+          setState((prevState) => ({ ...prevState, userExist: false, userData }));
         }
       };
       checkIfUserExist();
@@ -62,20 +54,17 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>
-          <Route path='/logout'>
-            <Logout />
-          </Route>
-          <Route path='/profile'>
+          <Route path="/profile">
             <Profile userData={state.userData} />
           </Route>
-          <Route path='/messages'>
-            <Messages />
+          <Route path="/messages">
+            <Messages userData={state.userData} />
           </Route>
-          <Route path='/profileedit'>
-            <Profileedit userData={state.userData}/>
+          <Route path="/profileedit">
+            <Profileedit userData={state.userData} />
           </Route>
 
-          <Route exact path='/'>
+          <Route exact path="/">
             {state.loggedIn ? (
               state.userExist ? (
                 <Home userData={state.userData} />

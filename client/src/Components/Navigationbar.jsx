@@ -8,18 +8,18 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarText
+  NavbarText,
 } from 'reactstrap';
 
 const Navigationbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [removeCookie] = useCookies(['accessToken']);
+  const [cookie, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const toggle = () => setIsOpen(!isOpen);
 
   const logOut = () => {
     removeCookie('accessToken');
-  }
+  };
 
   return (
     <div>
@@ -38,7 +38,7 @@ const Navigationbar = () => {
               <NavLink href="/messages">Messages</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/logout" onClick={logOut}>Log out</NavLink>
+              <NavLink href="/" onClick={logOut}>Log out</NavLink>
             </NavItem>
           </Nav>
           <NavbarText>by NumeroUno</NavbarText>
@@ -46,6 +46,6 @@ const Navigationbar = () => {
       </Navbar>
     </div>
   );
-}
+};
 
 export default Navigationbar;

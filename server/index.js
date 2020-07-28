@@ -1,10 +1,10 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
-const schema = require('./schema/schema');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
+const schema = require('./schema/schema');
 
 mongoose.connect(
   'mongodb+srv://fanny_petersen:Numerouno@cluster0.m7tv4.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -31,14 +31,12 @@ app.get('/callback', async (req, res) => {
 
   const options = {
     method: 'POST',
-    body: body,
+    body,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   };
-  const response = await fetch('https://www.linkedin.com/oauth/v2/accessToken', options).then(response =>
-    response.json(),
-  );
+  const response = await fetch('https://www.linkedin.com/oauth/v2/accessToken', options).then((data) => data.json());
 
   res.cookie('accessToken', response.access_token);
   res.redirect('http://localhost:3000');
@@ -49,7 +47,7 @@ app.get('/checkuser', async (req, response) => {
     mode: 'cors',
     Connection: 'Keep-Alive',
     headers: { Authorization: `Bearer ${req.cookies.accessToken}` },
-  }).then(res => res.json());
+  }).then((res) => res.json());
   response.header('Access-Control-Allow-origin', 'http://localhost:3000');
   response.header('Access-Control-Allow-Credentials', 'true');
   response.json(userData);
@@ -65,7 +63,7 @@ app.use(
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', () => {
   console.log('Connected to database');
 });
 

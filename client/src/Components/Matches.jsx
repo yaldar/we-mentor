@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import MatchCard from './MatchCard';
+
 const { createApolloFetch } = require('apollo-fetch');
 
 const apolloFetch = createApolloFetch({
@@ -9,34 +10,30 @@ const apolloFetch = createApolloFetch({
 
 const getMatchesQuery = (id) => `{
   matches(id: "${id}")
-}`
+}`;
 
 function Matches(props) {
   const [matches, setMatches] = useState({ matches: [] });
 
   useEffect(() => {
-    console.log('Matches user id', props.userId);
-    if(props.userId) {
+    if (props.userId) {
       apolloFetch({
         query: getMatchesQuery(props.userId),
       })
-      .then(res => {
-        setMatches({ matches: [...res.data.matches] });
-        return res; 
-      })
-      .then(res => props.getFirstMatch(res.data.matches[0]));
+        .then((res) => {
+          setMatches({ matches: [...res.data.matches] });
+          return res;
+        })
+        .then((res) => props.getFirstMatch(res.data.matches[0]));
     }
-    
   }, [props]);
 
   return (
-      <div>
-        {matches.matches.map(id => {
-          return (
-              <MatchCard getMatchData={props.getMatchData} id={id} key={id} />
-          );
-        })}
-      </div>
+    <div>
+      {matches.matches.map((id) => (
+        <MatchCard getMatchData={props.getMatchData} id={id} key={id} />
+      ))}
+    </div>
   );
 }
 

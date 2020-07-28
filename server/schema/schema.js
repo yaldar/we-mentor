@@ -1,12 +1,74 @@
+const {
+  GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt,
+} = require('graphql');
 const User = require('../models/user');
-const { GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+
+const conversations = [
+  {
+    id: 'conversation1',
+    messages: [],
+  },
+  {
+    id: 'conversation2',
+    messages: [],
+  },
+];
+
+let conversation1 = [
+  {
+    id: '1', // uuid
+    name: 'Carro',
+    message: 'Hello there! I am your new menteee!!',
+  },
+  {
+    id: '2', // uuid
+    name: 'Max',
+    message: 'Oh no, i thought you would be a man :O',
+  },
+  {
+    id: '3', // uuid
+    name: 'Carro',
+    message: 'Oh kuk',
+  },
+  {
+    id: '4', // uuid
+    name: 'Max',
+    message: 'Balle. aja det är ok. allt bra? ',
+  },
+  {
+    id: '5', // uuid
+    name: 'Carro',
+    message: 'Nej. Jag tycker inte om män >:-(',
+  },
+  {
+    id: '6', // uuid
+    name: 'Max',
+    message: 'Im not a man, i  am a boy',
+  },
+  {
+    id: '7', // uuid
+    name: 'Carro',
+    message: 'Gr8! I luv bois!! :D',
+  },
+];
 
 const MessageType = new GraphQLObjectType({
   name: 'Message',
   fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
-    message: { type: GraphQLString }
+    message: { type: GraphQLString },
+  }),
+});
+
+const PreferenceType = new GraphQLObjectType({
+  name: 'Preferences',
+  fields: () => ({
+    linkedin_id: { type: GraphQLString },
+    city: { type: GraphQLString },
+    years: { type: GraphQLString },
+    technologies: { type: new GraphQLList(GraphQLString) },
+    stack: { type: GraphQLString },
   }),
 });
 
@@ -23,17 +85,6 @@ const UserType = new GraphQLObjectType({
     current_job: { type: GraphQLString },
     role: { type: GraphQLString },
     preferences: { type: PreferenceType },
-  }),
-});
-
-const PreferenceType = new GraphQLObjectType({
-  name: 'Preferences',
-  fields: () => ({
-    linkedin_id: { type: GraphQLString },
-    city: { type: GraphQLString },
-    years: { type: GraphQLString },
-    technologies: { type: new GraphQLList(GraphQLString) },
-    stack: { type: GraphQLString },
   }),
 });
 
@@ -67,7 +118,6 @@ const RootQuery = new GraphQLObjectType({
         const user = await User.findOne({ linkedin_id: args.id }).exec();
         const userCity = user.preferences.city;
         const userTechnologies = user.preferences.technologies[0].split(',');
-        console.log(userTechnologies);
         const userStack = user.preferences.stack;
         const userYears = user.preferences.years;
         const dbResponse = await User.find({
@@ -76,15 +126,13 @@ const RootQuery = new GraphQLObjectType({
           city: userCity,
           stack: userStack,
         }).exec();
-        const matchedArray = dbResponse.filter(e => {
+        const matchedArray = dbResponse.filter((e) => {
           const technologies = e.technologies[0].split(',');
-          for (let i = 0; i < technologies.length; i++) {
-            if (userTechnologies.includes(technologies[i])) {
-              return true;
-            }
+          for (let i = 0; i < technologies.length; i += 1) {
+            return (userTechnologies.includes(technologies[i]));
           }
         });
-        const idArray = matchedArray.map(el => el.linkedin_id);
+        const idArray = matchedArray.map((el) => el.linkedin_id);
         return idArray;
       },
     },
@@ -96,10 +144,13 @@ const Mutation = new GraphQLObjectType({
   fields: {
     addMessage: {
       type: MessageType,
-      args: { id: { type: GraphQLString }, name: { type: GraphQLString }, message: { type: GraphQLString }},
+      args: {
+        id: { type: GraphQLString },
+        name: { type: GraphQLString },
+        message: { type: GraphQLString },
+      },
       resolve(parent, args) {
-        conversation1 = [...conversation1, {id: args.id, name: args.name, message: args.message}]; 
-        console.log(conversation1);
+        conversation1 = [...conversation1, { id: args.id, name: args.name, message: args.message }];
         return conversation1;
       },
     },
@@ -121,7 +172,7 @@ const Mutation = new GraphQLObjectType({
         pref_stack: { type: GraphQLString },
       },
       resolve(parent, args) {
-        let user = new User({
+        const user = new User({
           linkedin_id: args.linkedin_id,
           name: args.name,
           bio: args.bio,
@@ -191,55 +242,6 @@ const Mutation = new GraphQLObjectType({
     },
   },
 });
-
-const conversations = [
-  {
-    id: 'conversation1',
-    messages: []
-  },
-  {
-    id: 'conversation2',
-    messages: []
-  }
-];
-
-let conversation1 = [
-  {
-    id: "1", // uuid
-    name: "Carro",
-    message: "Hello there! I am your new menteee!!"
-  },
-  {
-    id: "2", // uuid
-    name: "Max",
-    message: "Oh no, i thought you would be a man :O"
-  },
-  {
-    id: "3", // uuid
-    name: "Carro",
-    message: "Oh kuk"
-  },
-  {
-    id: "4", // uuid
-    name: "Max",
-    message: "Balle. aja det är ok. allt bra? "
-  },
-  {
-    id: "5", // uuid
-    name: "Carro",
-    message: "Nej. Jag tycker inte om män >:-("
-  },
-  {
-    id: "6", // uuid
-    name: "Max",
-    message: "Im not a man, i  am a boy"
-  },
-  {
-    id: "7", // uuid
-    name: "Carro",
-    message: "Gr8! I luv bois!! :D"
-  }
-]
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
