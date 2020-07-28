@@ -1,6 +1,52 @@
 const User = require('../models/user');
-
 const { GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+
+const conversation1 = [
+  {
+    id: "1", // uuid
+    name: "Carro",
+    message: "Hello there! I am your new menteee!!"
+  },
+  {
+    id: "2", // uuid
+    name: "Max",
+    message: "Oh no, i thought you would be a man :O"
+  },
+  {
+    id: "3", // uuid
+    name: "Carro",
+    message: "Oh kuk"
+  },
+  {
+    id: "4", // uuid
+    name: "Max",
+    message: "Balle. aja det är ok. allt bra? "
+  },
+  {
+    id: "5", // uuid
+    name: "Carro",
+    message: "Nej. Jag tycker inte om män >:-("
+  },
+  {
+    id: "6", // uuid
+    name: "Max",
+    message: "Im not a man, i  am a boy"
+  },
+  {
+    id: "7", // uuid
+    name: "Carro",
+    message: "Gr8! I luv bois!! :D"
+  }
+]
+
+const MessageType = new GraphQLObjectType({
+  name: 'Message',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    message: { type: GraphQLString }
+  }),
+});
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -32,6 +78,13 @@ const PreferenceType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    conversation: {
+      type: new GraphQLList(MessageType),
+      args: { id: { type: GraphQLString } },
+      resolve(parent, args) {
+        return conversation1;
+      },
+    },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
