@@ -35,11 +35,10 @@ const Profile = props => {
 
   const userId = props.userData ? props.userData.id : '';
 
-  const capitalizeFLetter = (string) => {   
-    const capitalized = string[0].toUpperCase() +  
-      string.slice(1);
-      return capitalized; 
-  } 
+  const capitalizeFLetter = string => {
+    const capitalized = string[0].toUpperCase() + string.slice(1);
+    return capitalized;
+  };
 
   const getUserData = async () => {
     const profileData = await apolloFetch({
@@ -53,7 +52,15 @@ const Profile = props => {
 
       const matchCity = capitalizeFLetter(profileData.data.user.preferences.city);
 
-      setState({ profileData: profileData, userTechnologies: userTechnologies, userCity: userCity, matchCity: matchCity });
+      const matchTechnologies = profileData.data.user.preferences.technologies[0].split(',');
+
+      setState({
+        profileData: profileData,
+        userTechnologies: userTechnologies,
+        userCity: userCity,
+        matchCity: matchCity,
+        matchTechnologies: matchTechnologies,
+      });
       console.log('STATE:', profileData.data.user);
     }
   };
@@ -68,33 +75,43 @@ const Profile = props => {
       <section className='content'>
         <h3>{state.profileData ? state.profileData.data.user.name : ''}s profile</h3>
         <br></br>
-
-        <p>Bio: {state.profileData ? state.profileData.data.user.bio : ''}</p>
-
-        <p>City: {state.userCity ? state.userCity : ''}</p>
-
-        <p>Years of experience: {state.profileData ? state.profileData.data.user.years : ''}</p>
-
-        <p>Stack: {state.profileData ? state.profileData.data.user.stack : ''}</p>
-
-        <p>Technologies: {state.userTechnologies ? state.userTechnologies.map(el => `* ${el} `) : ''}</p>
-
-        <p>Role: {state.profileData ? state.profileData.data.user.role : ''}</p>
-
-        <p>Current job: {state.profileData ? state.profileData.data.user.current_job : ''}</p>
-
-        <p>Preferred city of mentor: {state.matchCity ? state.matchCity : ''}</p>
-
-        <p>Preferred years of mentor: {state.profileData ? state.profileData.data.user.preferences.years : ''}</p>
-
-        <p>Preferred stack of mentor: {state.profileData ? state.profileData.data.user.preferences.stack : ''}</p>
-
-        <p>Preferred technologies of mentor: {state.profileData ? state.profileData.data.user.preferences.technologies : ''}</p>
-
-        <Link to="/profileedit">
-        <Button color="success">Edit</Button>
+        <h6>Role</h6>
+        <p>{state.profileData ? state.profileData.data.user.role : ''}</p>
+        <hr></hr>
+        <h6>Bio</h6>
+        <p>{state.profileData ? state.profileData.data.user.bio : ''}</p>
+        <hr></hr>
+        <h6>City</h6>
+        <p>{state.userCity ? state.userCity : ''}</p>
+        <hr></hr>
+        <h6>Years of experience</h6>
+        <p> {state.profileData ? state.profileData.data.user.years : ''}</p>
+        <hr></hr>
+        <h6>Stack</h6> <p>{state.profileData ? state.profileData.data.user.stack : ''}</p>
+        <hr></hr>
+        <h6>Technologies</h6>
+        <p> {state.userTechnologies ? state.userTechnologies.map(el => `* ${el} `) : ''}</p>
+        <hr></hr>
+        <h6>Current job</h6>
+        <p> {state.profileData ? state.profileData.data.user.current_job : ''}</p>
+        <hr></hr>
+        <h6>Preferred city of mentor</h6>
+        <p> {state.matchCity ? state.matchCity : ''}</p>
+        <hr></hr>
+        <h6>Preferred years of mentor</h6>
+        <p> {state.profileData ? state.profileData.data.user.preferences.years : ''}</p>
+        <hr></hr>
+        <h6>Preferred stack of mentor</h6>
+        <p> {state.profileData ? state.profileData.data.user.preferences.stack : ''}</p>
+        <hr></hr>
+        <h6>
+          Preferred technologies of mentor</h6>{' '}
+          <p>{state.matchTechnologies ? state.matchTechnologies.map(el => `* ${el} `) : ''}
+        </p>
+        <hr></hr>
+        <Link to='/profileedit'>
+          <Button color='success'>Edit</Button>
         </Link>
-
       </section>
     </div>
   );

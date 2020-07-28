@@ -11,7 +11,7 @@ import {
   NavbarText
 } from 'reactstrap';
 
-const Navigationbar = (props) => {
+const Navigationbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [removeCookie] = useCookies(['accessToken']);
 
@@ -36,9 +36,6 @@ const Navigationbar = (props) => {
             </NavItem>
             <NavItem>
               <NavLink href="/messages">Messages</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/search">Search</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/logout" onClick={logOut}>Log out</NavLink>

@@ -5,7 +5,6 @@ import Logout from './Logout';
 import Profile from './Profile';
 import Profileedit from './Profileedit';
 import Messages from './Messages';
-import Search from './Search';
 import Profilecreation from './Profilecreation';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
@@ -72,10 +71,6 @@ function App() {
           <Route path='/messages'>
             <Messages />
           </Route>
-          <Route path='/search'>
-            <Search />
-          </Route>
-
           <Route path='/profileedit'>
             <Profileedit userData={state.userData}/>
           </Route>
