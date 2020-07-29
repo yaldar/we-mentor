@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { Alert } from 'reactstrap';
 
 const Logout = () => {
-  const [removeCookie] = useCookies(['accessToken']);
+  const [cookie, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const logOut = () => {
     removeCookie('accessToken');
@@ -25,3 +25,4 @@ const Logout = () => {
 };
 
 export default Logout;
+

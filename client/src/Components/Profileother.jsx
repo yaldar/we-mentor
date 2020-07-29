@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
 import { Redirect, Route } from 'react-router-dom';
 import Messages from './Messages';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -23,7 +23,14 @@ const getMatchUserQuery = id => `{
     }
   }`;
 
-const Profileother = ({ matchId }) => {
+  const createConversationQuery = (id, p1, p2) => `
+  mutation{
+    addConversation(conversation_id: "${id}", participants: ["${p1}","${p2}"]){
+      conversation_id
+    }
+  }`;
+
+const Profileother = ({ matchId, userId }) => {
   const [matchProfile, setMatchProfile] = useState({ technologies: [] });
 
   const capitalizeFLetter = string => {
@@ -32,10 +39,9 @@ const Profileother = ({ matchId }) => {
   };
 
   const connect = () => {
-    setMatchProfile(prev => ({
-      ...prev,
-      connect: true,
-    }));
+    apolloFetch({
+      query: createConversationQuery(uuidv4() ,matchId, userId),
+    });
   };
 
   useEffect(() => {

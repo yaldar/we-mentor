@@ -8,11 +8,13 @@ import Footer from './Footer';
 
 
 function Home(props) {
-  const [state, setState] = useState({ user: null, clickedMatch: null });
+  const [state, setState] = useState({ clickedMatch: null });
 
   const getMatchData = (event) => setState({ clickedMatch: event.target.id });
 
   const getFirstMatch = (id) => setState({ clickedMatch: id });
+
+  console.log('This is props', props.userData.id);
 
   useEffect(() => {
     setState({ user: props.userData.id });
@@ -25,7 +27,7 @@ function Home(props) {
       <Container className="themed-container">
         <Row>
           <Col>
-            <Profileother matchId={state.clickedMatch} />
+            <Profileother matchId={state.clickedMatch} userId={props.userData.id}/>
           </Col>
           <Col>
             <Matches
