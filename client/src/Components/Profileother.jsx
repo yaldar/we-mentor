@@ -27,6 +27,11 @@ const getMatchUserQuery = (id) => `{
 const Profileother = ({ matchId }) => {
   const [matchProfile, setMatchProfile] = useState({ technologies: [] });
 
+  const capitalizeFLetter = (string) => {
+    const capitalized = string[0].toUpperCase() + string.slice(1);
+    return capitalized;
+  };
+
   useEffect(() => {
     apolloFetch({
       query: getMatchUserQuery(matchId),
@@ -41,11 +46,14 @@ const Profileother = ({ matchId }) => {
           years,
           technologies,
         } = res.data.user;
+
+        const userCity = capitalizeFLetter(res.data.user.city);
+
         setMatchProfile({
           name,
           bio,
           current_job,
-          city,
+          city: userCity,
           stack,
           years,
           technologies: [...technologies],
@@ -59,16 +67,18 @@ const Profileother = ({ matchId }) => {
       <img
         width="100px"
         height="100px"
-        src="https://media-exp1.licdn.com/dms/image/C4E03AQFXOCQI6Huk6g/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=QE2nEOXBoWNDy4vWrIEwYmGcqJMGwdTW0fQL_JAhYrU"
+        src="https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg"
         // TODO change place holder later
         alt="placeholder alt"
       />
       <CardBody>
-        <CardTitle>{matchProfile.name}</CardTitle>
+        <h4><CardTitle>{matchProfile.name}</CardTitle></h4>
+        <br></br>
+
         <CardSubtitle>{matchProfile.current_job}</CardSubtitle>
         <CardText>{matchProfile.bio}</CardText>
         <p>
-          City:
+          City: 
           {matchProfile.city}
         </p>
         <p>

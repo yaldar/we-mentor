@@ -45,11 +45,11 @@ function MessageWindow(props) {
   }, [props]);
 
   return (
-    <div className="chat-container" >
+    <div className="chat-container" style={{overflowX : "scroll", height: "60vh", border: "black solid 1px", borderRadius: "5px"}}>
       <section className="message-container">
         {state.conversation.map((el) => (
-          <div>
-            <p>{el.name}</p>
+          <div >
+            <h4>{el.name}</h4>
             <p>{el.message}</p>
           </div>
         ))}

@@ -10,7 +10,8 @@ const apolloFetch = createApolloFetch({
 
 const getConversationsQuery = id => `{
   conversations(id: "${id}"){
-    conversation_id
+    conversation_id,
+    participants
   }
 }`;
 
@@ -18,10 +19,10 @@ function Chats(props) {
   const [conversations, setConversations] = useState({ conversations: [] });
 
   useEffect(() => {
-    if (props.userID) {
-      if (props.userID.id) {
+    if (props.userData) {
+      if (props.userData.id) {
         apolloFetch({
-          query: getConversationsQuery(props.userID.id),
+          query: getConversationsQuery(props.userData.id),
         }).then(res => {
           console.log(res.data);
           setConversations({ conversations: [...res.data.conversations] });
@@ -35,7 +36,7 @@ function Chats(props) {
       {conversations.conversations.map(el => {
         
         return(
-        <ChatCard getConversationId={props.getConversationId} id={el.conversation_id} key={el.conversation_id} />
+        <ChatCard getConversationId={props.getConversationId} userId={props.userData.id} participants={el.participants} id={el.conversation_id} key={el.conversation_id} />
       )})}
     </div>
   );

@@ -24,7 +24,7 @@ const Messages = props => {
             <Chat conversationId={state.activeConversation} userData={props.userData} />
           </Col>
           <Col>
-            <Chats getConversationId={getConversationId} userID={props.userData}/>
+            <Chats getConversationId={getConversationId} userData={props.userData}/>
           </Col>
         </Row>
       </Container>

@@ -97,7 +97,7 @@ const Login = props => {
       <article className='media'>
         <Media>
           <section className='media__image'>
-            <Media left href='#'>
+            <Media >
               <Media
                 object
                 src='https://medier.talentum.com/ponIltIpIv-1551084951/media/Nyteknik/yc2397-Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg/alternates/FREE_320/Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg'
@@ -124,7 +124,7 @@ const Login = props => {
             </Media>
           </section>
           <section className='media__image'>
-            <Media left href='#'>
+            <Media >
               <Media
                 object
                 src='https://www.womenintech.se/wp-content/uploads/2018/01/aboutwit-1024x438.png'
