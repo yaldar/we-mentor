@@ -17,9 +17,10 @@ const Navigationbar = () => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const logOut = () => {
-    removeCookie('accessToken');
-  };
+  // const logOut = () => {
+  //   alert("You will be logged out. Hope to see youo soon again!");
+  //   removeCookie('accessToken');
+  // };
 
   return (
     <div>
@@ -38,7 +39,10 @@ const Navigationbar = () => {
               <NavLink href="/messages">Messages</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/" onClick={logOut}>Log out</NavLink>
+              <NavLink href="/logout" 
+              // onClick={logOut}
+              >Log out</NavLink>
+
             </NavItem>
           </Nav>
           <NavbarText>by NumeroUno</NavbarText>

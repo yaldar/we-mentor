@@ -94,6 +94,7 @@ function Profilecreation(props) {
                 }
               }`,
     }).then(() => {
+      alert(`${props.userData.localizedFirstName}, thank you for creating a We-Mentor profile!`);
       redirectToHome();
     });
   };

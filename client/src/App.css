@@ -65,6 +65,7 @@ img {
   width: 100%;
   max-width: 700px;
   margin: auto;
+  padding-bottom: 50px;
 }
 
 .profile-edit {
@@ -88,4 +89,43 @@ img {
 
 .footer {
   color: gray;
+}
+
+.matchcard {
+  margin-top: 10px;;
+}
+
+.logout-alert {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.logout-alert--text {
+padding-bottom: 20px;
+}
+
+.logout__button--yes {
+  background-color: #e9e9e9;
+  color: rgb(109, 109, 109);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin: 0px 10px;
+}
+
+.logout__button--no {
+  background-color: #d4d4d4;
+  color: rgb(109, 109, 109);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin: 0px 10px;
+}
+
+.visible {
+display: inline;
+}
+
+.invisible {
+  display: none;
 }

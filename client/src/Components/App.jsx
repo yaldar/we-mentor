@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import Logout from './Logout';
 import Profile from './Profile';
 import Profileedit from './Profileedit';
 import Messages from './Messages';
@@ -62,6 +63,9 @@ function App() {
           </Route>
           <Route path="/profileedit">
             <Profileedit userData={state.userData} />
+          </Route>
+          <Route path="/logout">
+            <Logout userData={state.userData} />
           </Route>
 
           <Route exact path="/">

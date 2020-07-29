@@ -1,7 +1,6 @@
 // When visiting another profile it should show if u match on profile.
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Card, CardText, CardBody, CardTitle, CardSubtitle,
 } from 'reactstrap';
@@ -37,17 +36,17 @@ const Profileother = ({ matchId }) => {
       query: getMatchUserQuery(matchId),
     }).then((res) => {
       if (res.data.user) {
+        const userCity = capitalizeFLetter(res.data.user.city);
+
+        const userTechnologies = res.data.user.technologies[0].split(',');
+
         const {
           name,
           bio,
           current_job,
-          city,
           stack,
           years,
-          technologies,
         } = res.data.user;
-
-        const userCity = capitalizeFLetter(res.data.user.city);
 
         setMatchProfile({
           name,
@@ -56,11 +55,22 @@ const Profileother = ({ matchId }) => {
           city: userCity,
           stack,
           years,
-          technologies: [...technologies],
+          technologies: [...userTechnologies],
+        });
+      } else {
+        setMatchProfile({
+          name: "Sorry, no matching user.",
+          bio: "Your matches are based on what preferences you have in your profile. Edit your preferences and you might find someone!",
+          current_job: "",
+          city: "",
+          stack: "",
+          years: "",
+          technologies: [""],
         });
       }
     });
   }, [matchId]);
+
 
   return (
     <Card>
@@ -73,28 +83,29 @@ const Profileother = ({ matchId }) => {
       />
       <CardBody>
         <h4><CardTitle>{matchProfile.name}</CardTitle></h4>
-        <br></br>
-
-        <CardSubtitle>{matchProfile.current_job}</CardSubtitle>
+        <hr></hr>
         <CardText>{matchProfile.bio}</CardText>
-        <p>
-          City: 
-          {matchProfile.city}
+
+        <section className={matchProfile.city ? 'visible' : 'invisible'}>
+        <h6><CardSubtitle>{matchProfile.current_job}</CardSubtitle></h6>
+
+        <h6>
+          City</h6> 
+          <p>{matchProfile.city}
         </p>
-        <p>
-          Stack:
-          {matchProfile.stack}
+        <h6>
+          Stack</h6> <p>{matchProfile.stack}
         </p>
-        <p>
-          Years:
-          {matchProfile.years}
+        <h6 >
+          Years</h6> <p>{matchProfile.years}
         </p>
-        <p>Technologies:</p>
+        <h6 >Technologies</h6>
         <ul>
           {matchProfile.technologies.map((el) => (
             <li>{el}</li>
           ))}
         </ul>
+        </section>
       </CardBody>
     </Card>
   );

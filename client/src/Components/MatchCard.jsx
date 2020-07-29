@@ -31,14 +31,17 @@ const MatchCard = (props) => {
   }, []);
 
   return (
+    <article className="matchcard">
     <Card id={props.id} onClick={props.getMatchData}>
       <img width="50px" height="50px" src="https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg" alt="placeholder alt" id={props.id} />
       <CardBody id={props.id}>
-        <CardTitle id={props.id}>{match.name}</CardTitle>
-        <CardSubtitle id={props.id}>{match.current_job}</CardSubtitle>
-        <CardText id={props.id}>{match.bio}</CardText>
+        <h5><CardTitle id={props.id}>{match.name}</CardTitle></h5>
+        <br></br>
+        <p><CardSubtitle id={props.id}>{match.current_job}</CardSubtitle></p>
+        <p><CardText id={props.id}>{match.bio}</CardText></p>
       </CardBody>
     </Card>
+    </article>
   );
 };
 

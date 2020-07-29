@@ -29,11 +29,12 @@ function Matches(props) {
   }, [props]);
 
   return (
-    <div>
+    <section className="match-sidebar">
+      <p className={matches[0] ? 'visible' : 'invisible'}> {props.role === 'mentor' ? 'Mentees' : 'Mentors'} who match your criteria:</p>
       {matches.matches.map((id) => (
         <MatchCard getMatchData={props.getMatchData} id={id} key={id} />
       ))}
-    </div>
+    </section>
   );
 }
 

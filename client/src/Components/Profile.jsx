@@ -51,6 +51,8 @@ const Profile = (props) => {
 
       const userCity = capitalizeFLetter(profileData.data.user.city);
 
+      const userRole = capitalizeFLetter(profileData.data.user.role);
+
       const matchCity = capitalizeFLetter(profileData.data.user.preferences.city);
 
       const matchTechnologies = profileData.data.user.preferences.technologies[0].split(',');
@@ -61,6 +63,7 @@ const Profile = (props) => {
         userCity,
         matchCity,
         matchTechnologies,
+        userRole
       });
     }
   };
@@ -82,12 +85,11 @@ const Profile = (props) => {
       <Navigationbar className="navbar" />
       <section className="content">
         <h3>
-          {state.profileData ? state.profileData.data.user.name : ''}
-          s profile
+          {state.profileData ? state.profileData.data.user.name : ''}s profile
         </h3>
         <br />
         <h6>Role</h6>
-        <p>{state.profileData ? state.profileData.data.user.role : ''}</p>
+        <p>{state.profileData ? state.userRole : ''}</p>
         <hr />
         <h6>Bio</h6>
         <p>{state.profileData ? state.profileData.data.user.bio : ''}</p>
@@ -142,9 +144,9 @@ const Profile = (props) => {
         <p>
           {state.matchTechnologies ? state.matchTechnologies.map((el) => `* ${el} `) : ''}
         </p>
-        <hr />
+        <br></br>
         <Link to="/profileedit">
-          <Button color="success">Edit</Button>
+          <Button color="success">Edit profile</Button>
         </Link>
       </section>
     </div>

@@ -1,18 +1,29 @@
 import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import Navigationbar from './Navigationbar';
+import { Alert } from 'reactstrap';
 
 const Logout = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   removeCookie('accessToken');
+  // });
+
+  const logOut = () => {
     removeCookie('accessToken');
-  });
+  };
 
   return (
     <div>
-      <Navigationbar className="navbar" />
-      Goodbye!
+      <Alert color='light' className="logout-alert">
+        <h5 className="logout-alert--text">Are you sure you want to log out?</h5> 
+        <a onClick={logOut} href="/"  className='logout__button--yes'>
+          Yes
+        </a>
+        <a href="/"  className='logout__button--no'>
+          No
+        </a>
+      </Alert>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Redirect,
 } from 'react-router-dom';
@@ -91,6 +90,9 @@ const Profileedit = ({ userData }) => {
     });
   };
 
+  console.log('HERE IS USER DATA', state.userData ? state.bio : 'nope');
+
+
   return (
     <div>
       {state.redirectToHome ? <Redirect to="/" /> : null}
@@ -107,11 +109,9 @@ const Profileedit = ({ userData }) => {
         <br />
         <form className="form" id="form">
           <h6>Select role</h6>
-          <input type="radio" id="mentor" name="role" value="mentor" onChange={handleChange} />
-          <label htmlFor="mentor">Mentor</label>
+          <input type="radio" id="mentor" name="role" value="mentor" onChange={handleChange} /> <label htmlFor="mentor">Mentor</label>
           <br />
-          <input type="radio" id="mentee" name="role" value="mentee" onChange={handleChange} />
-          <label htmlFor="mentee">Mentee</label>
+          <input type="radio" id="mentee" name="role" value="mentee" onChange={handleChange} /> <label htmlFor="mentee">Mentee</label>
           <hr />
           <h6> Edit your bio </h6>
           <input type="text" name="bio" placeholder="Edit bio" value={state.bio || ''} onChange={handleChange} />
@@ -121,7 +121,7 @@ const Profileedit = ({ userData }) => {
           <input
             type="text"
             name="city"
-            placeholder="Edit city"
+            placeholder={state.city || "Edit city"}
             value={state.city || ''}
             onChange={handleChange}
           />
@@ -140,29 +140,22 @@ const Profileedit = ({ userData }) => {
           <hr />
 
           <h6>Edit years of experience</h6>
-          <input type="radio" id="0-3" name="years" value="0-3" onChange={handleChange} />
-          <label htmlFor="0-3">0-3</label>
+          <input type="radio" id="0-3" name="years" value="0-3" onChange={handleChange} /> <label htmlFor="0-3">0-3</label>
           <br />
-          <input type="radio" id="3-5" name="years" value="3-5" onChange={handleChange} />
-          <label htmlFor="3-5">3-5</label>
+          <input type="radio" id="3-5" name="years" value="3-5" onChange={handleChange} /> <label htmlFor="3-5">3-5</label>
           <br />
-          <input type="radio" id="5-10" name="years" value="5-10" onChange={handleChange} />
-          <label htmlFor="5-10">5-10</label>
+          <input type="radio" id="5-10" name="years" value="5-10" onChange={handleChange} /> <label htmlFor="5-10">5-10</label>
           <br />
-          <input type="radio" id="10+" name="years" value="10+" onChange={handleChange} />
-          <label htmlFor="10+">10+</label>
+          <input type="radio" id="10+" name="years" value="10+" onChange={handleChange} /> <label htmlFor="10+">10+</label>
           <br />
           <hr />
 
           <h6>Edit stack</h6>
-          <input type="radio" id="Front-end" name="stack" value="Front-end" onChange={handleChange} />
-          <label htmlFor="Front-end">Front-end</label>
+          <input type="radio" id="Front-end" name="stack" value="Front-end" onChange={handleChange} /> <label htmlFor="Front-end">Front-end</label>
           <br />
-          <input type="radio" id="Back-end" name="stack" value="Back-end" onChange={handleChange} />
-          <label htmlFor="Back-end">Back-end</label>
+          <input type="radio" id="Back-end" name="stack" value="Back-end" onChange={handleChange} /> <label htmlFor="Back-end">Back-end</label>
           <br />
-          <input type="radio" id="Fullstack" name="stack" value="Fullstack" onChange={handleChange} />
-          <label htmlFor="Fullstack">Fullstack</label>
+          <input type="radio" id="Fullstack" name="stack" value="Fullstack" onChange={handleChange} /> <label htmlFor="Fullstack">Fullstack</label>
           <br />
           <hr />
 
@@ -174,32 +167,25 @@ const Profileedit = ({ userData }) => {
             value="JavaScript"
             onChange={addTechnologies}
             className="tech"
-          />
-          <label htmlFor="JavaScript">JavaScript</label>
+          /> <label htmlFor="JavaScript">JavaScript</label>
           <br />
-          <input type="checkbox" id="Java" name="tech" value="Java" onChange={addTechnologies} className="tech" />
-          <label htmlFor="Java">Java</label>
+          <input type="checkbox" id="Java" name="tech" value="Java" onChange={addTechnologies} className="tech" /> <label htmlFor="Java">Java</label>
           <br />
-          <input type="checkbox" id="C" name="tech" value="C" onChange={addTechnologies} className="tech" />
-          <label htmlFor="C">C</label>
+          <input type="checkbox" id="C" name="tech" value="C" onChange={addTechnologies} className="tech" /> <label htmlFor="C">C</label>
           <br />
-          <input type="checkbox" id="Node" name="tech" value="Node" onChange={addTechnologies} className="tech" />
-          <label htmlFor="Node">Node</label>
+          <input type="checkbox" id="Node" name="tech" value="Node" onChange={addTechnologies} className="tech" /> <label htmlFor="Node">Node</label>
           <br />
-          <input type="checkbox" id="Python" name="tech" value="Python" onChange={addTechnologies} className="tech" />
-          <label htmlFor="Python">Python</label>
+          <input type="checkbox" id="Python" name="tech" value="Python" onChange={addTechnologies} className="tech" /> <label htmlFor="Python">Python</label>
           <br />
           <hr />
           <h5>
-            What are you looking for in a
-            {state.role === 'mentor' ? 'mentee' : 'mentor'}
+            What are you looking for in a {state.role === 'mentor' ? 'mentee' : 'mentor'}
             ?
           </h5>
           <br />
           <h6>
             {' '}
-            Edit preferred city of
-            {state.role === 'mentor' ? 'mentee' : 'mentor'}
+            Edit preferred city of {state.role === 'mentor' ? 'mentee' : 'mentor'}
           </h6>
           <input
             type="text"
@@ -211,41 +197,31 @@ const Profileedit = ({ userData }) => {
           <hr />
 
           <h6>
-            Edit preferred years of experience of your
-            {state.role === 'mentor' ? 'mentee' : 'mentor'}
+            Edit preferred years of experience of {state.role === 'mentor' ? 'mentee' : 'mentor'}
           </h6>
-          <input type="radio" id="0-3" name="pref_years" value="0-3" onChange={handleChange} />
-          <label htmlFor="0-3">0-3</label>
+          <input type="radio" id="0-3" name="pref_years" value="0-3" onChange={handleChange} /> <label htmlFor="0-3">0-3</label>
           <br />
-          <input type="radio" id="3-5" name="pref_years" value="3-5" onChange={handleChange} />
-          <label htmlFor="3-5">3-5</label>
+          <input type="radio" id="3-5" name="pref_years" value="3-5" onChange={handleChange} /> <label htmlFor="3-5">3-5</label>
           <br />
-          <input type="radio" id="5-10" name="pref_years" value="5-10" onChange={handleChange} />
-          <label htmlFor="5-10">5-10</label>
+          <input type="radio" id="5-10" name="pref_years" value="5-10" onChange={handleChange} /> <label htmlFor="5-10">5-10</label>
           <br />
-          <input type="radio" id="10+" name="pref_years" value="10+" onChange={handleChange} />
-          <label htmlFor="10+">10+</label>
+          <input type="radio" id="10+" name="pref_years" value="10+" onChange={handleChange} /> <label htmlFor="10+">10+</label>
           <br />
           <hr />
 
           <h6>
-            Edit preferred stack of your
-            {state.role === 'mentor' ? 'mentee' : 'mentor'}
+            Edit preferred stack of {' '}{state.role === 'mentor' ? 'mentee' : 'mentor'}
           </h6>
-          <input type="radio" id="Front-end" name="pref_stack" value="Front-end" onChange={handleChange} />
-          <label htmlFor="Front-end">Front-end</label>
+          <input type="radio" id="Front-end" name="pref_stack" value="Front-end" onChange={handleChange} /> <label htmlFor="Front-end">Front-end</label>
           <br />
-          <input type="radio" id="Back-end" name="pref_stack" value="Back-end" onChange={handleChange} />
-          <label htmlFor="Back-end">Back-end</label>
+          <input type="radio" id="Back-end" name="pref_stack" value="Back-end" onChange={handleChange} /> <label htmlFor="Back-end">Back-end</label>
           <br />
-          <input type="radio" id="Fullstack" name="pref_stack" value="Fullstack" onChange={handleChange} />
-          <label htmlFor="Fullstack">Fullstack</label>
+          <input type="radio" id="Fullstack" name="pref_stack" value="Fullstack" onChange={handleChange} /> <label htmlFor="Fullstack">Fullstack</label>
           <br />
           <hr />
 
           <h6>
-            Edit preferred technologies of
-            {state.role === 'mentor' ? 'mentee' : 'mentor'}
+            Edit preferred technologies of {state.role === 'mentor' ? 'mentee' : 'mentor'}
           </h6>
           <input
             type="checkbox"
@@ -254,8 +230,7 @@ const Profileedit = ({ userData }) => {
             value="JavaScript"
             onChange={addPrefTechnologies}
             className="pref_tech"
-          />
-          <label htmlFor="pref_JavaScript">JavaScript</label>
+          /> <label htmlFor="pref_JavaScript">JavaScript</label>
           <br />
           <input
             type="checkbox"
@@ -264,8 +239,7 @@ const Profileedit = ({ userData }) => {
             value="Java"
             onChange={addPrefTechnologies}
             className="pref_tech"
-          />
-          <label htmlFor="pref_Java">Java</label>
+          /> <label htmlFor="pref_Java">Java</label>
           <br />
           <input
             type="checkbox"
@@ -274,8 +248,7 @@ const Profileedit = ({ userData }) => {
             value="C"
             onChange={addPrefTechnologies}
             className="pref_tech"
-          />
-          <label htmlFor="pref_C">C</label>
+          /> <label htmlFor="pref_C">C</label>
           <br />
           <input
             type="checkbox"
@@ -284,8 +257,7 @@ const Profileedit = ({ userData }) => {
             value="Node"
             onChange={addPrefTechnologies}
             className="pref_tech"
-          />
-          <label htmlFor="pref_Node">Node</label>
+          /> <label htmlFor="pref_Node">Node</label>
           <br />
           <input
             type="checkbox"
@@ -294,8 +266,7 @@ const Profileedit = ({ userData }) => {
             value="Python"
             onChange={addPrefTechnologies}
             className="pref_tech"
-          />
-          <label htmlFor="pref_Python">Python</label>
+          /> <label htmlFor="pref_Python">Python</label>
           <br />
           <br />
           <input type="submit" className="profile-edit__button" value="Submit" onClick={handleSubmit} />
@@ -305,7 +276,7 @@ const Profileedit = ({ userData }) => {
   );
 };
 
-// this is how to do props validation for a prop that's an object
+// <3 this is how to do props validation for a prop that's an object
 // Profileedit.propTypes = {
 //   userData: PropTypes.shape({
 //     name: PropTypes.string.isRequired,
