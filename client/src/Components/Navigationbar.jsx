@@ -18,7 +18,7 @@ const Navigationbar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   // const logOut = () => {
-  //   alert("You will be logged out. Hope to see youo soon again!");
+  //   alert("You will be logged out. Hope to see you soon again!");
   //   removeCookie('accessToken');
   // };
 

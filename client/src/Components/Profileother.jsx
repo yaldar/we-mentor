@@ -1,9 +1,9 @@
-// When visiting another profile it should show if u match on profile.
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card, CardText, CardBody, CardTitle, CardSubtitle,
-} from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Redirect, Route } from 'react-router-dom';
+import Messages from './Messages';
+
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -11,7 +11,7 @@ const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
-const getMatchUserQuery = (id) => `{
+const getMatchUserQuery = id => `{
     user(id: "${id}") {
       name,
       bio,
@@ -26,27 +26,28 @@ const getMatchUserQuery = (id) => `{
 const Profileother = ({ matchId }) => {
   const [matchProfile, setMatchProfile] = useState({ technologies: [] });
 
-  const capitalizeFLetter = (string) => {
+  const capitalizeFLetter = string => {
     const capitalized = string[0].toUpperCase() + string.slice(1);
     return capitalized;
+  };
+
+  const connect = () => {
+    setMatchProfile(prev => ({
+      ...prev,
+      connect: true,
+    }));
   };
 
   useEffect(() => {
     apolloFetch({
       query: getMatchUserQuery(matchId),
-    }).then((res) => {
+    }).then(res => {
       if (res.data.user) {
         const userCity = capitalizeFLetter(res.data.user.city);
 
         const userTechnologies = res.data.user.technologies[0].split(',');
 
-        const {
-          name,
-          bio,
-          current_job,
-          stack,
-          years,
-        } = res.data.user;
+        const { name, bio, current_job, stack, years } = res.data.user;
 
         setMatchProfile({
           name,
@@ -59,55 +60,70 @@ const Profileother = ({ matchId }) => {
         });
       } else {
         setMatchProfile({
-          name: "Sorry, no matching user.",
-          bio: "Your matches are based on what preferences you have in your profile. Edit your preferences and you might find someone!",
-          current_job: "",
-          city: "",
-          stack: "",
-          years: "",
-          technologies: [""],
+          name: 'Sorry, no matching user.',
+          bio:
+            'Your matches are based on what preferences you have in your profile. Edit your preferences and you might find someone!',
+          current_job: '',
+          city: '',
+          stack: '',
+          years: '',
+          technologies: [''],
         });
       }
     });
   }, [matchId]);
 
+  console.log('MATCHID', matchId);
 
   return (
-    <Card>
-      <img
-        width="100px"
-        height="100px"
-        src="https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg"
-        // TODO change place holder later
-        alt="placeholder alt"
-      />
-      <CardBody>
-        <h4><CardTitle>{matchProfile.name}</CardTitle></h4>
-        <hr></hr>
-        <CardText>{matchProfile.bio}</CardText>
+    <div className='profile-other'>
 
-        <section className={matchProfile.city ? 'visible' : 'invisible'}>
-        <h6><CardSubtitle>{matchProfile.current_job}</CardSubtitle></h6>
+      {matchProfile.connect ? 
+        // <Redirect
+        //   to={{
+        //     pathname: '/messages',
+        //     state: { matchId: matchId },
+        //   }}
+        // />
+            <Messages matchId={matchId} />
+       : null}
 
-        <h6>
-          City</h6> 
-          <p>{matchProfile.city}
-        </p>
-        <h6>
-          Stack</h6> <p>{matchProfile.stack}
-        </p>
-        <h6 >
-          Years</h6> <p>{matchProfile.years}
-        </p>
-        <h6 >Technologies</h6>
-        <ul>
-          {matchProfile.technologies.map((el) => (
-            <li>{el}</li>
-          ))}
-        </ul>
-        </section>
-      </CardBody>
-    </Card>
+      <Card>
+        <img
+          width='100px'
+          height='100px'
+          src='https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg'
+          // TODO change place holder later
+          alt='placeholder alt'
+        />
+        <CardBody>
+          <h4>
+            <CardTitle>{matchProfile.name}</CardTitle>
+          </h4>
+          <hr></hr>
+          <CardText>{matchProfile.bio}</CardText>
+
+          <section className={matchProfile.city ? 'visible' : 'invisible'}>
+            <h6>Current job</h6>
+            <p>{matchProfile.current_job}</p>
+            <h6>City</h6>
+            <p>{matchProfile.city}</p>
+            <h6>Stack</h6> <p>{matchProfile.stack}</p>
+            <h6>Years</h6> <p>{matchProfile.years}</p>
+            <h6>Technologies</h6>
+            <ul>
+              {matchProfile.technologies.map(el => (
+                <li>{el}</li>
+              ))}
+            </ul>
+            <br></br>
+            <a onClick={connect} href='/messages' className='connect__button'>
+              Connect with {matchProfile.name}
+            </a>
+          </section>
+        </CardBody>
+      </Card>
+    </div>
   );
 };
 

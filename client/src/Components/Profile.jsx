@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
 import Navigationbar from './Navigationbar';
+import Footer from './Footer';
+
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -149,6 +150,7 @@ const Profile = (props) => {
           <Button color="success">Edit profile</Button>
         </Link>
       </section>
+      <Footer></Footer>
     </div>
   );
 };

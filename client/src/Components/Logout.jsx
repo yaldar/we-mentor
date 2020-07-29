@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useCookies } from 'react-cookie';
 import { Alert } from 'reactstrap';
 
 const Logout = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
-
-  // useEffect(() => {
-  //   removeCookie('accessToken');
-  // });
+  const [removeCookie] = useCookies(['accessToken']);
 
   const logOut = () => {
     removeCookie('accessToken');

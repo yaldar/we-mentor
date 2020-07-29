@@ -47,7 +47,7 @@ const Chat = (props) => {
           <Label for="exampleText" />
           <Input type="textarea" name="text" id="exampleText" value={state.message} onChange={writeMessage} />
         </FormGroup>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button className="connect__button" onClick={handleSubmit}>Submit</Button>
       </Form>
     </div>
   );

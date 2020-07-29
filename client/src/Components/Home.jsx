@@ -4,6 +4,8 @@ import '../App.css';
 import Navigationbar from './Navigationbar';
 import Matches from './Matches';
 import Profileother from './Profileother';
+import Footer from './Footer';
+
 
 function Home(props) {
   const [state, setState] = useState({ user: null, clickedMatch: null });
@@ -16,12 +18,8 @@ function Home(props) {
     setState({ user: props.userData.id });
   }, [props]);
 
-  // <Route exact path="/">
-  // {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-  // </Route>
-
   return (
-    <div className="LoggedInApp">
+    <div className="home">
       <Navigationbar className="navbar" />
 
       <Container className="themed-container">
@@ -38,7 +36,7 @@ function Home(props) {
           </Col>
         </Row>
       </Container>
-
+      <Footer></Footer>
     </div>
   );
 }

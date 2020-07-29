@@ -89,6 +89,8 @@ img {
 
 .footer {
   color: gray;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .matchcard {
@@ -122,6 +124,15 @@ padding-bottom: 20px;
   margin: 0px 10px;
 }
 
+.connect__button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin: 0px 10px;
+}
+
 .visible {
 display: inline;
 }
@@ -129,3 +140,4 @@ display: inline;
 .invisible {
   display: none;
 }
+

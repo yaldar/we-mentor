@@ -8,6 +8,8 @@ import {
   Media,
   Button
 } from 'reactstrap';
+import Footer from './Footer';
+
 
 const items = [
   {
@@ -135,7 +137,7 @@ const Login = props => {
           
         </Media>
         </article>
-        <p className="footer">What is the need? Mentoring focused for the tech sector. Who is it for? Women in tech. Welcome to WeMentor.</p>
+        <Footer></Footer>
     </div>
   );
 };
