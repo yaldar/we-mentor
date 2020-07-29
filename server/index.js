@@ -53,6 +53,18 @@ app.get('/checkuser', async (req, response) => {
   response.json(userData);
 });
 
+// app.get('/profilepicture/:token', async (req, response) => {
+//   const url = 'https://media.licdn.com/dms/image/C4E03AQFXOCQI6Huk6g/profile-displayphoto-shrink_100_100/0?e=1526940000&v=alpha&t=12345';
+//   const userData = await fetch(url, {
+//     mode: 'cors',
+//     Connection: 'Keep-Alive',
+//     headers: { Authorization: `Bearer ${req.params.accessToken}` },
+//   }).then((res) => res.text()).then(res => console.log(res));
+//   response.header('Access-Control-Allow-origin', 'http://localhost:3000');
+//   response.header('Access-Control-Allow-Credentials', 'true');
+//   response.send(userData);
+// });
+
 app.use(
   '/graphql',
   graphqlHTTP({

@@ -2,10 +2,15 @@ const {
   GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt,
 } = require('graphql');
 const User = require('../models/user');
+const Conversation = require('../models/conversation')
 
 const conversations = [
   {
     id: 'conversation1',
+    messages: [],
+  },
+  {
+    id: 'conversation2',
     messages: [],
   },
   {
@@ -55,9 +60,17 @@ let conversation1 = [
 const MessageType = new GraphQLObjectType({
   name: 'Message',
   fields: () => ({
-    id: { type: GraphQLString },
     name: { type: GraphQLString },
     message: { type: GraphQLString },
+  }),
+});
+
+const ConversationType = new GraphQLObjectType({
+  name: 'Conversation',
+  fields: () => ({
+    conversation_id: { type: GraphQLString },
+    participants: { type: new GraphQLList(GraphQLString) },
+    messages: { type: new GraphQLList(MessageType) },
   }),
 });
 
@@ -92,10 +105,10 @@ const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     conversation: {
-      type: new GraphQLList(MessageType),
+      type: ConversationType,
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return conversation1;
+      return Conversation.findOne({ conversation_id: args.id });
       },
     },
     users: {
@@ -136,6 +149,17 @@ const RootQuery = new GraphQLObjectType({
         return idArray;
       },
     },
+    conversations: {
+      type: new GraphQLList(ConversationType),
+      args: { id: { type: GraphQLString } },
+      async resolve(parent, args) {
+        const dbResponse = await Conversation.find({ 
+          participants: {"$in": args.id}
+        }).exec();
+        console.log('DBRES', dbResponse);
+        return dbResponse;   
+      },   
+    }
   },
 });
 
@@ -150,9 +174,27 @@ const Mutation = new GraphQLObjectType({
         message: { type: GraphQLString },
       },
       resolve(parent, args) {
-        conversation1 = [...conversation1, { id: args.id, name: args.name, message: args.message }];
-        return conversation1;
+        const newMessage = { name: args.name, message: args.message};
+        return Conversation.update(
+          { conversation_id: args.id },
+          {$push: {messages: newMessage}}
+        );
       },
+    },
+    addConversation:{
+      type: ConversationType,
+      args: {
+        conversation_id: { type: GraphQLString },
+        participants: { type: new GraphQLList(GraphQLString) }
+      },
+      resolve(parent, args) {
+        const conversation = new Conversation({
+          conversation_id: args.conversation_id,
+          participants: [...args.participants],
+          messages: [],
+        });
+        return conversation.save();
+      }
     },
     addUser: {
       type: UserType,

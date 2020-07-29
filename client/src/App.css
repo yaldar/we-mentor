@@ -17,7 +17,7 @@ img {
   /* grid-template-rows: repeat(5, 1fr); */
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .div1 {
@@ -28,11 +28,14 @@ img {
 }
 
 .media {
-  margin: 50px;
-  margin-left: 100px;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
 }
 
 .media__image {
+  width: 100%;
+  max-width: 400px;
   margin: 0px 50px;
 }
 
@@ -80,4 +83,8 @@ img {
   border-radius: 5px;
   color: white;
   padding: 8px 10px;
+}
+
+.footer {
+  color: gray;
 }

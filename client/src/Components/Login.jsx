@@ -6,6 +6,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
   Media,
+  Button
 } from 'reactstrap';
 
 const items = [
@@ -33,11 +34,10 @@ const items = [
 
 ];
 
-const Login = () => {
+const Login = props => {
   // Navbar state
-  // TODO these were declared but not used
-  // const [isOpen, setIsOpen] = useState(false);
-  // const toggle = () => setIsOpen(!isOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   // Carousel state
   const [activeIndex, setActiveIndex] = useState(0);
@@ -55,108 +55,87 @@ const Login = () => {
     setActiveIndex(nextIndex);
   };
 
-  const goToIndex = (newIndex) => {
+  const goToIndex = newIndex => {
     if (animating) return;
     setActiveIndex(newIndex);
   };
 
-  const slides = items.map((item) => (
-    <CarouselItem
-      onExiting={() => setAnimating(true)}
-      onExited={() => setAnimating(false)}
-      key={item.src}
-    >
-      <img src={item.src} alt={item.altText} height="500vh" />
-      <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-    </CarouselItem>
-  ));
+  const slides = items.map(item => {
+    return (
+      <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
+        <img src={item.src} alt={item.altText} height='500vh' />
+        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+      </CarouselItem>
+    );
+  });
 
   return (
-    <div className="login">
-
+    <div className='login'>
       <header className="login__header">
-        <p className="div1">What is the need? Mentoring focused for the tech sector. Who is it for? Women in tech.</p>
-        {' '}
-        <a className="div2" href="http://localhost:4000/login">Sign in with Linkedin</a>
+      <p className="div1">What is the need? Mentoring focused for the tech sector. Who is it for? Women in tech.</p>
       </header>
-      <h1>Welcome to WeMentor.</h1>
-      <br />
-      <br />
 
-      {/* <Button color="primary" href="http://localhost:4000/login">Sign in with Linkedin</Button> */}
+      <h1>Welcome to WeMentor.</h1>
+      <br></br>
+
+      <Button color="primary" href="http://localhost:4000/login">Sign in with Linkedin</Button>
+      <br></br>
+      <br></br>
+
       <Carousel activeIndex={activeIndex} next={next} previous={previous}>
         <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
         {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+        <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
+        <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
       </Carousel>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
 
-      <article className="media">
+      <article className='media'>
         <Media>
-          <section className="media__image">
-            <Media left href="#">
+          <section className='media__image'>
+            <Media left href='#'>
               <Media
                 object
-                src="https://medier.talentum.com/ponIltIpIv-1551084951/media/Nyteknik/yc2397-Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg/alternates/FREE_320/Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg"
-                height="250vh"
+                src='https://medier.talentum.com/ponIltIpIv-1551084951/media/Nyteknik/yc2397-Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg/alternates/FREE_320/Jessica-Mitrosbaras-Nataly-Duyko-700-394-ny-teknik.jpg'
+                height='250vh'
               />
             </Media>
           </section>
-          <section className="media__text">
+          <section className='media__text'>
             <Media body>
-              <Media heading>Media heading</Media>
-              A really nice blurry
-              pic of two power women in tech. Meet women in tech and find a mentor
-              that guides you through y
-              our career. Lorem ipsum dol
-              or sit amet, consectetur adipiscing elit. Ut ac semper libero.
-              Nam iaculis lobortis lacinia
-              . Mauris eleifend, sem vel frin
-              gilla porta, orci odio vulp
-              utate sapien, tincidunt lobortis dui justo ut purus. Sed vel vestib
-              ulu
-              m urna, vel fermentum urna. S
-              uspendisse lobortis fermentum orci, sit amet lacinia nibh accumsan sit amet.
+              <Media heading>Media heading</Media>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac semper libero. Nam iaculis lobortis lacinia. Mauris eleifend, sem vel fringilla porta, orci odio vulputate sapien, tincidunt lobortis dui justo ut purus. Sed vel vestibulum urna, vel fermentum urna. Suspendisse lobortis fermentum orci, sit amet lacinia nibh accumsan sit amet. Mauris eleifend, sem vel fringilla porta, orci odio vulputate sapien, tincidunt lobortis dui justo ut purus.
             </Media>
           </section>
         </Media>
       </article>
 
-      <br />
-
-      <article className="media">
+      <br></br>
+        
+      <article className='media'>
 
         <Media>
-          <section className="media__text">
+        <section className='media__text'>
             <Media body>
-              <Media heading>Media heading</Media>
-              A really nice blurry pic of two power women in tech. Meet women in
-              tech and find a mentor that guides you through your career.
-              ipsum dolor sit amet, consectetur adipiscing elit. Ut ac semper
-              libero. Nam iaculis lobortis lacinia. Mauris eleifend, sem vel
-              fringilla porta, orci odio vulputate sapien, tincidunt lobortis
-              dui justo ut purus. Sed vel vestibulum urna, vel fermentum
-              urna. Suspendisse lobortis fermentum orci, sit amet lacinia
-              nibh accumsan sit amet.
+              <Media heading>Media heading</Media>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac semper libero. Nam iaculis lobortis lacinia. Mauris eleifend, sem vel fringilla porta, orci odio vulputate sapien, tincidunt lobortis dui justo ut purus. Sed vel vestibulum urna, vel fermentum urna. Suspendisse lobortis fermentum orci, sit amet lacinia nibh accumsan sit amet. Mauris eleifend, sem vel fringilla porta, orci odio vulputate sapien, tincidunt lobortis dui justo ut purus.
             </Media>
           </section>
-          <section className="media__image">
-            <Media left href="#">
+          <section className='media__image'>
+            <Media left href='#'>
               <Media
                 object
-                src="https://www.womenintech.se/wp-content/uploads/2018/01/aboutwit-1024x438.png"
-                height="250vh"
+                src='https://www.womenintech.se/wp-content/uploads/2018/01/aboutwit-1024x438.png'
+                height='250vh'
               />
             </Media>
           </section>
-
+          
         </Media>
-      </article>
+        </article>
+        <p className="footer">What is the need? Mentoring focused for the tech sector. Who is it for? Women in tech. Welcome to WeMentor.</p>
     </div>
   );
 };

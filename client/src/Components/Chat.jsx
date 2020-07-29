@@ -12,16 +12,8 @@ const apolloFetch = createApolloFetch({
   uri: 'http://localhost:4000/graphql',
 });
 
-const getConversationQuery = () => `{
-    conversation(id: "id"){
-        id,
-        name,
-        message
-        }
-    }`;
-
-const sendMessageQuery = (name, message) => `mutation{
-    addMessage(id: "${uuidv4()}", name:"${name}", message: "${message}"){
+const sendMessageQuery = (id, name, message) => `mutation{
+    addMessage(id: "${id}", name:"${name}", message: "${message}"){
       name
     }
   }`;
@@ -41,23 +33,15 @@ const Chat = (props) => {
   };
 
   const handleSubmit = () => {
+    console.log('ID', props.conversationId, 'na,e', props.userData.localizedFirstName, 'state', state.message );
     apolloFetch({
-      query: sendMessageQuery(props.userData.localizedFirstName, state.message),
+      query: sendMessageQuery(props.conversationId ,props.userData.localizedFirstName, state.message),
     });
   };
-
-  useEffect(() => {
-    apolloFetch({
-      query: getConversationQuery(),
-    })
-      .then((res) => {
-        setState({ conversation: [...res.data.conversation] });
-      });
-  }, []);
-
+  useEffect(()=>{},[props]);
   return (
     <div className="chat-container">
-      <MessageWindow />
+      <MessageWindow conversationId={props.conversationId}/>
       <Form>
         <FormGroup>
           <Label for="exampleText" />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -31,6 +32,7 @@ const getUserQuery = (id) => `{
 
 const Profile = (props) => {
   const [state, setState] = useState({});
+  const [cookies] = useCookies(['accessToken']);
 
   const userId = props.userData ? props.userData.id : '';
 
@@ -63,8 +65,16 @@ const Profile = (props) => {
     }
   };
 
+  // const getProfilePic = async () => {
+  //   const profilePic = await fetch(`http://localhost:4000/profilepicture/${cookies.accessToken}`).then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+  //   .then(data => console.log(data));
+  //   console.log('Picture moddafukkaa', profilePic);
+  // }
+
   useEffect(() => {
     getUserData();
+    // getProfilePic();
+
   }, [props]);
 
   return (

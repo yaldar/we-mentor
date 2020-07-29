@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema({
         years: String,
         stack: String,
         technologies: Array
-    }
+    },
+    conversations: Array,
 });
 
-module.exports = mongoose.model('User', userSchema); 
+
+module.exports = mongoose.model('User', userSchema);
