@@ -89,6 +89,16 @@ const Profileedit = ({ userData }) => {
       redirectToHome();
     });
   };
+  
+
+  const fileSelected = (e) => {
+    console.log(e.target.files[0]);
+    // file to be stored in the db = e.target.files[0]
+       // setState({
+    //   ...state,
+    //   [e.target.name]: e.target.files[0]
+    // });
+  };
 
   console.log('HERE IS USER DATA', state.userData ? state.bio : 'nope');
 
@@ -108,6 +118,19 @@ const Profileedit = ({ userData }) => {
         <br />
         <br />
         <form className="form" id="form">
+
+        <h6>Pic Upload</h6>
+                  <input
+                    type="file"
+                    name="picture"
+                    onChange={fileSelected}
+                  />
+                  <label htmlFor="file">File</label>
+                  <br />
+                  <hr />
+
+
+
           <h6>Select role</h6>
           <input type="radio" id="mentor" name="role" value="mentor" onChange={handleChange} /> <label htmlFor="mentor">Mentor</label>
           <br />

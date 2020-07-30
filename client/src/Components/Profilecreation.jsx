@@ -13,6 +13,7 @@ function Profilecreation(props) {
   const [state, setState] = useState({
     linkedin_id: '',
     name: '',
+    picture: [],
     bio: '',
     city: '',
     years: '',
@@ -99,6 +100,17 @@ function Profilecreation(props) {
     });
   };
 
+
+
+  const fileSelected = (e) => {
+    console.log(e.target.files[0]);
+    // file to be stored in the db = e.target.files[0]
+       setState({
+      ...state,
+      [e.target.name]: e.target.files[0]
+    });
+  };
+
   return (
     <div>
       {state.redirectToHome ? <Redirect to="/" /> : null}
@@ -117,6 +129,18 @@ function Profilecreation(props) {
         <br />
         <hr />
         <form className="form" id="form">
+
+        <h6>Pic Upload</h6>
+                  <input
+                    type="file"
+                    name="picture"
+                    onChange={fileSelected}
+                    accept="image/png, image/jpeg"
+                  />
+                  <br />
+                  <hr />
+
+
           <h6>Select role</h6>
           <input
             type="radio"
