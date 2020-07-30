@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import ChatCard from './ChatCard';
 
 const { createApolloFetch } = require('apollo-fetch');

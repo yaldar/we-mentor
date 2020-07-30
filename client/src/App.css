@@ -14,7 +14,6 @@ img {
 .login__header {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* grid-template-rows: repeat(5, 1fr); */
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin-bottom: 30px;
@@ -87,14 +86,21 @@ img {
   padding: 8px 10px;
 }
 
-.footer {
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.App__footer {
+  flex: 1;
   color: gray;
   text-align: center;
-  margin-top: 30px;
+  height: 50px;
 }
 
 .matchcard {
-  margin-top: 10px;;
+  margin-top: 10px;
 }
 
 .logout-alert {
@@ -103,7 +109,7 @@ img {
 }
 
 .logout-alert--text {
-padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .logout__button--yes {
@@ -134,10 +140,9 @@ padding-bottom: 20px;
 }
 
 .visible {
-display: inline;
+  display: inline;
 }
 
 .invisible {
   display: none;
 }
-

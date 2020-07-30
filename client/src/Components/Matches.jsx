@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import MatchCard from './MatchCard';
 
 const { createApolloFetch } = require('apollo-fetch');
@@ -28,9 +27,11 @@ function Matches(props) {
     }
   }, [props]);
 
-  return (
-    <section className="match-sidebar">
-      <p className={matches[0] ? 'visible' : 'invisible'}> {props.role === 'mentor' ? 'Mentees' : 'Mentors'} who match your criteria:</p>
+  return ( 
+    <section   style={{overflowX : "scroll", height: "95vh", border: "gray solid 1px", borderRadius: "3px"}}>
+      
+      <h6 > {props.role === 'mentor' ? 'Mentees' : 'Mentors'} who match your criteria:</h6>
+
       {matches.matches.map((id) => (
         <MatchCard getMatchData={props.getMatchData} id={id} key={id} />
       ))}

@@ -150,7 +150,7 @@ const Profile = (props) => {
           <Button color="success">Edit profile</Button>
         </Link>
       </section>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 };

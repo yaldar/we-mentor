@@ -445,7 +445,7 @@ function Profilecreation(props) {
           />
         </form>
       </section>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 }

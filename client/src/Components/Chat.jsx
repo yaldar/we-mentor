@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Button, Form, FormGroup, Input, Label,
 } from 'reactstrap';
-import { v4 as uuidv4 } from 'uuid';
 import MessageWindow from './MessageWindow';
 
 const { createApolloFetch } = require('apollo-fetch');
@@ -17,11 +16,6 @@ const sendMessageQuery = (id, name, message) => `mutation{
       name
     }
   }`;
-
-// MAX'S HOOKS TUTORIAL FOR CARRO
-// this.state = {
-//    conversations:[]
-// }
 
 const Chat = (props) => {
   const [state, setState] = useState({ message: '' });

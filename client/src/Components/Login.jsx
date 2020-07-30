@@ -137,7 +137,7 @@ const Login = props => {
           
         </Media>
         </article>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
     </div>
   );
 };

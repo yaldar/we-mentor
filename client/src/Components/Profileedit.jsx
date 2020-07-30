@@ -274,7 +274,7 @@ const Profileedit = ({ userData }) => {
           <input type="submit" className="profile-edit__button" value="Submit" onClick={handleSubmit} />
         </form>
       </section>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 };

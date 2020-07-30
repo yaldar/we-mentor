@@ -30,7 +30,7 @@ const Messages = props => {
           </Col>
         </Row>
       </Container>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
 </div>
   );
 };

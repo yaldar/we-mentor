@@ -17,7 +17,7 @@ const Logout = () => {
           Yes
         </a>
         <a href="/"  className='logout__button--no'>
-          No
+          No, take me back to We-Mentor!
         </a>
       </Alert>
     </div>

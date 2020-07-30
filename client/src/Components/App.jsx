@@ -9,6 +9,8 @@ import Profile from './Profile';
 import Profileedit from './Profileedit';
 import Messages from './Messages';
 import Profilecreation from './Profilecreation';
+import Footer from './Footer';
+
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -53,6 +55,7 @@ function App() {
 
   return (
     <div>
+    <div className="App">
       <BrowserRouter>
         <Switch>
           <Route path="/profile">
@@ -81,7 +84,10 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    
+    </div>
+    <div className="App__footer">
+    <Footer></Footer>
+    </div>
     </div>
   );
 }

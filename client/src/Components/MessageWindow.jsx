@@ -46,6 +46,7 @@ function MessageWindow(props) {
 
   return (
     <div className="chat-container" style={{overflowX : "scroll", height: "60vh", border: "black solid 1px", borderRadius: "5px"}}>
+
       <section className="message-container">
         {state.conversation.map((el) => (
           <div >

@@ -68,7 +68,7 @@ const Profileother = ({ matchId, userId }) => {
         setMatchProfile({
           name: 'Sorry, no matching user.',
           bio:
-            'Your matches are based on what preferences you have in your profile. Edit your preferences and you might find someone!',
+            'Your matches are based on what preferences you have put in your profile. Edit your preferences and you might find someone!',
           current_job: '',
           city: '',
           stack: '',
@@ -79,18 +79,10 @@ const Profileother = ({ matchId, userId }) => {
     });
   }, [matchId]);
 
-  console.log('MATCHID', matchId);
-
   return (
     <div className='profile-other'>
 
       {matchProfile.connect ? 
-        // <Redirect
-        //   to={{
-        //     pathname: '/messages',
-        //     state: { matchId: matchId },
-        //   }}
-        // />
             <Messages matchId={matchId} />
        : null}
 
