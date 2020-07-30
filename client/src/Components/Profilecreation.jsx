@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Navigationbar from './Navigationbar';
-import Footer from './Footer';
-
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -445,7 +443,6 @@ function Profilecreation(props) {
           />
         </form>
       </section>
-      {/* <Footer></Footer> */}
     </div>
   );
 }

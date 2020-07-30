@@ -4,7 +4,6 @@ import '../App.css';
 import Navigationbar from './Navigationbar';
 import Matches from './Matches';
 import Profileother from './Profileother';
-import Footer from './Footer';
 
 function Home(props) {
   const [state, setState] = useState({ clickedMatch: null });
@@ -35,7 +34,6 @@ function Home(props) {
           </Col>
         </Row>
       </Container>
-      {/* <Footer></Footer> */}
     </div>
   );
 }

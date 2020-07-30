@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
@@ -5,6 +6,7 @@ const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
 const schema = require('./schema/schema');
+
 
 mongoose.connect(
   'mongodb+srv://fanny_petersen:Numerouno@cluster0.m7tv4.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -17,8 +19,8 @@ app.use(cors());
 app.use(cookieParser());
 
 const redirectUri = 'http://localhost:4000/callback/';
-const clientId = '77bzgsojg5xj7f';
-const clientSecret = 'PCkTMkADeGys2Ra9';
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 const state = 'numerouno';
 
 app.get('/login', (req, res) => {

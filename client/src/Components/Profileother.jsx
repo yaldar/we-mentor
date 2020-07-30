@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
-import { Redirect, Route } from 'react-router-dom';
 import Messages from './Messages';
 import { v4 as uuidv4 } from 'uuid';
 

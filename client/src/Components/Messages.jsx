@@ -4,17 +4,12 @@ import PropTypes from 'prop-types';
 import Navigationbar from './Navigationbar';
 import Chat from './Chat';
 import Chats from './Chats';
-import Footer from './Footer';
-
 
 const Messages = props => {
   const [state, setState] = useState({ activeConversation: null });
   const getConversationId = event => {
     setState({ activeConversation: event.target.id })
   };
-
-    console.log('PROPS', props);
- 
 
   return (
     <div>
@@ -30,7 +25,6 @@ const Messages = props => {
           </Col>
         </Row>
       </Container>
-      {/* <Footer></Footer> */}
 </div>
   );
 };

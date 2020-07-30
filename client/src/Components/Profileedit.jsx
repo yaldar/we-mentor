@@ -4,8 +4,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Navigationbar from './Navigationbar';
-import Footer from './Footer';
-
 
 const { createApolloFetch } = require('apollo-fetch');
 
@@ -274,7 +272,6 @@ const Profileedit = ({ userData }) => {
           <input type="submit" className="profile-edit__button" value="Submit" onClick={handleSubmit} />
         </form>
       </section>
-      {/* <Footer></Footer> */}
     </div>
   );
 };

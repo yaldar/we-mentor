@@ -8,7 +8,6 @@ import {
   Media,
   Button
 } from 'reactstrap';
-import Footer from './Footer';
 
 
 const items = [
@@ -137,7 +136,6 @@ const Login = props => {
           
         </Media>
         </article>
-        {/* <Footer></Footer> */}
     </div>
   );
 };
