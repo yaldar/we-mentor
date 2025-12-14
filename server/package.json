@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
-    "mongoose": "^5.9.25",
+    "mongoose": "^6.13.6",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
